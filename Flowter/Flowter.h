@@ -6,7 +6,7 @@
 //  Copyright © 2018 Zazcar. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <UIKit/UIKit.h>
 
 //! Project version number for Flowter.
 FOUNDATION_EXPORT double FlowterVersionNumber;
