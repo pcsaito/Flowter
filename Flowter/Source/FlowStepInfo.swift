@@ -4,10 +4,12 @@ public struct FlowStepInfo {
     internal var flowStep: FlowStepProtocol
 
     public func next(updating: Bool = false) {
-        if let endFlow = flowStep.nextStep?.endFlowAction {
-            return endFlow()
+        guard let nextStep = flowStep.nextStep, nextStep.nextStep != nil else {
+            flowStep.nextStep?.endFlowAction?()
+            return
         }
-        flowStep.nextStep?.present(updating)
+
+        nextStep.present(updating)
     }
 
     public func back() {
