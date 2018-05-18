@@ -1,9 +1,9 @@
 import Foundation
 
-public struct FinishedFlowter<T> {
-    internal let flowter: Flowter<T>
+public struct FinishedFlowter<ContainerType> where ContainerType: UIViewController {
+    internal let flowter: Flowter<ContainerType>
 
-    public func startFlow(flowPresentAction: ( (_ flowContainer: T) -> Void)) {
+    public func startFlow(flowPresentAction: ( (_ flowContainer: ContainerType) -> Void)) {
         guard let step = flowter.steps.first else { return }
 
         step.present()
@@ -11,45 +11,42 @@ public struct FinishedFlowter<T> {
     }
 }
 
-public class Flowter<T> {
-    public typealias DefaultStepActionType = ( (_ vc: UIViewController, _ container: T) -> Void)
+public class Flowter<ContainerType> where ContainerType: UIViewController {
+    public typealias  DefaultStepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
 
-    fileprivate var steps = [Make]()
-    private let presentAction: DefaultStepActionType
-    private let dismissAction: DefaultStepActionType
+    fileprivate var steps = [FlowStep<ContainerType>]()
+    private let presentAction:  DefaultStepActionType
+    private let dismissAction:  DefaultStepActionType
 
-    public let flowContainer: T
+    public let flowContainer: ContainerType
 
-    public init(with container: T, defaultPresentAction: @escaping DefaultStepActionType, defaultDismissAction: @escaping DefaultStepActionType) {
+    public init(with container: ContainerType, defaultPresentAction: @escaping  DefaultStepActionType, defaultDismissAction: @escaping  DefaultStepActionType) {
         flowContainer = container
         presentAction = defaultPresentAction
         dismissAction = defaultDismissAction
     }
 
-    public func addStep(withFactory stepFactory: () -> Make) -> Flowter<T> {
-        let lastStep = steps.last
-        let step = stepFactory()
-        lastStep?.nextStep = step
+    public func addStep(with: (_ stepFactory: MakeStep<ContainerType>) -> FlowStep<ContainerType>) -> Flowter<ContainerType> {
+        let step = with(MakeStep(flowter: self))
+
+        steps.last?.nextStep = step
 
         if step.endFlowAction == nil && step.presentAction == nil {
-            step.presentAction = { (vc) in
-                self.presentAction(vc, self.flowContainer)
-            }
+            step.presentAction = presentAction
         }
 
         if step.dismissAction == nil {
-            step.dismissAction = { (vc) in
-                self.dismissAction(vc, self.flowContainer)
-            }
+            step.dismissAction = dismissAction
         }
 
+        step.container = flowContainer
         steps.append(step)
         return self
     }
 
-    public func addEndFlowStep(_ action: @escaping () -> Void ) -> FinishedFlowter<T> {
-        let flow = self.addStep(withFactory: { () -> Make in
-            let step = Make()
+    public func addEndFlowStep(_ action: @escaping () -> Void ) -> FinishedFlowter<ContainerType> {
+        let flow = self.addStep(with: { (_) -> FlowStep<ContainerType> in
+            let step = FlowStep<ContainerType>()
 
             step.setEndFlowAction {
                 action()
@@ -62,54 +59,42 @@ public class Flowter<T> {
     }
 }
 
-extension Flowter where T: UINavigationController {
-    private static var defaultPresent: DefaultStepActionType {
-        return { (vc, container) in
-            container.popViewController(animated: true)
-        }
+extension Flowter {
+    public convenience init(with container: ContainerType) {
+        self.init(with: container, defaultPresentAction: Flowter<ContainerType>.defaultPresent(), defaultDismissAction: Flowter<ContainerType>.defaultDismiss())
     }
 
-    private static var defaultDismiss: DefaultStepActionType {
-        return { (vc, container) in
-            container.pushViewController(vc, animated: true)
-        }
+    public convenience init(with container: ContainerType, defaultPresentAction: @escaping  DefaultStepActionType) {
+        self.init(with: container, defaultPresentAction: defaultPresentAction, defaultDismissAction: Flowter<ContainerType>.defaultDismiss())
     }
 
-    public convenience init(with container: T) {
-        self.init(with: container, defaultPresentAction: Flowter<T>.defaultPresent, defaultDismissAction: Flowter<T>.defaultDismiss)
+    public convenience init(with container: ContainerType, defaultDismissAction: @escaping  DefaultStepActionType) {
+        self.init(with: container, defaultPresentAction: Flowter<ContainerType>.defaultPresent(), defaultDismissAction: defaultDismissAction)
     }
 
-    public convenience init(with container: T, defaultPresentAction: @escaping DefaultStepActionType) {
-        self.init(with: container, defaultPresentAction: defaultPresentAction, defaultDismissAction: Flowter<T>.defaultDismiss)
-    }
-
-    public convenience init(with container: T, defaultDismissAction: @escaping DefaultStepActionType) {
-        self.init(with: container, defaultPresentAction: Flowter<T>.defaultPresent, defaultDismissAction: defaultDismissAction)
-    }
-}
-
-extension Flowter where T: UIViewController {
-    private static var defaultPresent: DefaultStepActionType {
+    private static func defaultPresent() ->  DefaultStepActionType {
         return { (vc, container) in
             container.dismiss(animated: true)
         }
     }
 
-    private static var defaultDismiss: DefaultStepActionType {
+    private static func defaultDismiss() ->  DefaultStepActionType {
         return { (vc, container) in
             container.present(vc, animated: true)
         }
     }
+}
 
-    public convenience init(with container: T) {
-        self.init(with: container, defaultPresentAction: Flowter<T>.defaultPresent, defaultDismissAction: Flowter<T>.defaultDismiss)
+extension Flowter where ContainerType == UINavigationController {
+    private static func defaultPresent() ->  DefaultStepActionType {
+        return { (vc, container) in
+            container.popViewController(animated: true)
+        }
     }
 
-    public convenience init(with container: T, defaultPresentAction: @escaping DefaultStepActionType) {
-        self.init(with: container, defaultPresentAction: defaultPresentAction, defaultDismissAction: Flowter<T>.defaultDismiss)
-    }
-
-    public convenience init(with container: T, defaultDismissAction: @escaping DefaultStepActionType) {
-        self.init(with: container, defaultPresentAction: Flowter<T>.defaultPresent, defaultDismissAction: defaultDismissAction)
+    private static func defaultDismiss() ->  DefaultStepActionType {
+        return { (vc, container) in
+            container.pushViewController(vc, animated: true)
+        }
     }
 }

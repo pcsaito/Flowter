@@ -1,7 +1,15 @@
 import Foundation
 
+internal protocol FlowStepProtocol {
+    var nextStep: FlowStepProtocol? { get }
+    var endFlowAction: ( () -> Void)? { get }
+
+    func present(_ updating: Bool)
+    func dismiss()
+}
+
 public struct FlowStepInfo {
-    fileprivate var flowStep: Make
+    fileprivate var flowStep: FlowStepProtocol
 
     public func next(updating: Bool = false) {
         if let endFlow = flowStep.nextStep?.endFlowAction {
@@ -15,16 +23,25 @@ public struct FlowStepInfo {
     }
 }
 
-public class Make {
-    public typealias ViewControllerFactoryType = ( () -> FlowStepViewControllerProtocol)
+public typealias ViewControllerFactoryType = () -> FlowStepViewControllerProtocol
+public struct MakeStep<ContainerType: UIViewController> {
+    internal let flowter: Flowter<ContainerType>
+
+    public func make(with factory: @autoclosure @escaping () -> FlowStepViewControllerProtocol) -> FlowStep<ContainerType> {
+        return FlowStep<ContainerType>(with: factory)
+    }
+}
+
+public class FlowStep<ContainerType>: FlowStepProtocol {
+    public typealias StepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
     private let viewControllerFactory: ViewControllerFactoryType
 
-    public typealias StepActionType = ( (_ vc: UIViewController) -> Void)
     internal var presentAction: StepActionType?
     internal var dismissAction: StepActionType?
     internal var endFlowAction: ( () -> Void)?
 
-    internal var nextStep: Make?
+    internal var nextStep: FlowStepProtocol?
+    internal var container: ContainerType?
 
     lazy var vc = { self.viewControllerFactory() }()
 
@@ -43,22 +60,24 @@ public class Make {
     public func setEndFlowAction(_ action: @escaping ( () -> Void)) {
         endFlowAction = action
     }
-}
 
-extension Make {
+
     internal convenience init() {
         self.init(with: { BogusFlowController() })
     }
 
     internal func present(_ updating: Bool = false) {
+        guard let containerController = container else { fatalError("Flow Step does not have a container") }
         guard let viewController = vc as? UIViewController else { fatalError("FlowStepViewControllerProtocol is not a UIViewController") }
 
         vc.flow = FlowStepInfo(flowStep: self)
-        presentAction?(viewController)
+        presentAction?(viewController, containerController)
     }
 
     internal func dismiss() {
+        guard let containerController = container else { fatalError("Flow Step does not have a container") }
         guard let viewController = vc as? UIViewController else { fatalError("FlowStepViewControllerProtocol is not a UIViewController") }
-        dismissAction?(viewController)
+
+        dismissAction?(viewController, containerController)
     }
 }
