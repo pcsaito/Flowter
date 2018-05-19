@@ -6,6 +6,8 @@ internal protocol FlowStepProtocol {
 
     func present(_ updating: Bool)
     func dismiss()
+    
+    func destroy()
 }
 
 public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerType>: FlowStepProtocol {
@@ -18,6 +20,7 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
     internal var dismissAction: StepActionType?
     internal var endFlowAction: ( () -> Void)?
 
+    internal var isLastStep: Bool = false
     internal var nextStep: FlowStepProtocol?
     internal var container: ContainerType?
 
@@ -50,6 +53,19 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
         guard let containerController = container else { fatalError("Flow Step does not have a container") }
 
         dismissAction?(viewController, containerController)
+    }
+
+    internal func destroy() {
+        presentAction = nil
+        dismissAction = nil
+        endFlowAction = nil
+
+        container = nil
+        nextStep = nil
+
+        if !isLastStep {
+            viewController.flow = nil
+        }
     }
 }
 
