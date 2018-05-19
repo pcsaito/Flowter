@@ -4,7 +4,7 @@ public struct FlowStepInfo {
     internal var flowStep: FlowStepProtocol
 
     public func next(updating: Bool = false) {
-        guard let nextStep = flowStep.nextStep, nextStep.nextStep != nil else {
+        guard let nextStep = flowStep.nextStep, !nextStep.isLastStep else {
             flowStep.nextStep?.endFlowAction?()
             return
         }

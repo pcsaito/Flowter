@@ -2,7 +2,7 @@ import Foundation
 
 public class Flowter<ContainerType> where ContainerType: UIViewController {
 
-    public typealias StepFactoryType<ControllerType: FlowStepViewControllerProtocol> = (_ stepFactory: MakeStep<ControllerType, ContainerType>) -> FlowStep<ControllerType, ContainerType>
+    public typealias StepFactoryType<T: FlowStepViewControllerProtocol> = (_ stepFactory: MakeStep<T,ContainerType>) -> FlowStep<T,ContainerType>
     public typealias DefaultStepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
     public typealias EndFlowStepActionType = (_ container: ContainerType) -> Void
 
@@ -22,7 +22,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     }
 
     public func addStep<ControllerType: FlowStepViewControllerProtocol>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
-        let step = with(MakeStep(flowter: self))
+        let step = with(MakeStep<ControllerType,ContainerType>())
         step.container = flowContainer
 
         var lastStep = steps.last
@@ -37,13 +37,19 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
             step.dismissAction = dismissAction
         }
 
-        if let endFlowAction = step.endFlowAction {
+        if step.isLastStep, let endFlowAction = step.endFlowAction {
             steps.forEach { (eachStep) in
                 var mutableStep = eachStep
-                mutableStep.endFlowAction = {
-                    endFlowAction()
-                    mutableStep.destroy()
-                    self.clearSteps()
+                if let definedEndStep = mutableStep.endFlowAction {
+                    mutableStep.endFlowAction = { [weak self] in
+                        definedEndStep()
+                        self?.clearSteps()
+                    }
+                } else {
+                    mutableStep.endFlowAction = { [weak self] in
+                        endFlowAction()
+                        self?.clearSteps()
+                    }
                 }
             }
         }
@@ -52,12 +58,12 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     }
 
     public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
-        let flow = self.addStep(with: { (_) -> FlowStep<EndFlowPlaceholderController, ContainerType> in
-            let step = FlowStep<EndFlowPlaceholderController, ContainerType> { EndFlowPlaceholderController() }
+        let flow = self.addStep(with: { [weak self] (_) -> FlowStep<EndFlowStubController, ContainerType> in
+            let step = FlowStep<EndFlowStubController, ContainerType> { EndFlowStubController() }
             step.isLastStep = true
 
-            let container = self.flowContainer
-            step.endFlowAction = {
+            step.endFlowAction = { [weak flowContainer = self?.flowContainer] in
+                guard let container = flowContainer else { return }
                 action(container)
             }
 
@@ -67,6 +73,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     }
 
     private func clearSteps() {
+        steps.forEach { $0.destroy() }
         steps.removeAll()
     }
 }

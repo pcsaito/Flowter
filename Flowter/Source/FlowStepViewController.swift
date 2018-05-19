@@ -11,7 +11,7 @@ public extension FlowStepViewControllerProtocol {
     func updateFlowStepViewController() { }
 }
 
-internal class EndFlowPlaceholderController: UIViewController, FlowStepViewControllerProtocol {
+internal class EndFlowStubController: UIViewController, FlowStepViewControllerProtocol {
     var flow: FlowStepInfo?
 
     init() {

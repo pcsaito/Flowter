@@ -1,6 +1,7 @@
 import Foundation
 
 internal protocol FlowStepProtocol {
+    var isLastStep: Bool { get }
     var nextStep: FlowStepProtocol? { get set }
     var endFlowAction: ( () -> Void)? { get set }
 
@@ -24,7 +25,9 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
     internal var nextStep: FlowStepProtocol?
     internal var container: ContainerType?
 
-    lazy var viewController: ControllerType = { self.viewControllerFactory() }()
+    lazy var viewController: ControllerType = { [unowned self] in
+        self.viewControllerFactory()
+        }()
 
     public init(with factory: @escaping ViewControllerFactoryType) {
         self.viewControllerFactory = factory
@@ -46,6 +49,10 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
         guard let containerController = container else { fatalError("Flow Step does not have a container") }
 
         viewController.flow = FlowStepInfo(flowStep: self)
+        if updating {
+            viewController.updateFlowStepViewController()
+        }
+
         presentAction?(viewController, containerController)
     }
 
@@ -70,8 +77,6 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
 }
 
 public struct MakeStep<ControllerType: FlowStepViewControllerProtocol, ContainerType: UIViewController> {
-    internal let flowter: Flowter<ContainerType>
-
     public func make(with factory: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
         return FlowStep<ControllerType,ContainerType>(with: factory)
     }

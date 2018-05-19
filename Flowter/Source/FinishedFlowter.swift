@@ -3,10 +3,15 @@ import Foundation
 public struct FinishedFlowter<ContainerType> where ContainerType: UIViewController {
     internal let flowter: Flowter<ContainerType>
 
-    public func startFlow(flowPresentAction: ( (_ flowContainer: ContainerType) -> Void)) {
+    public func startFlow(flowPresentAction: @escaping ( (_ flowContainer: ContainerType) -> Void)) {
         guard let step = flowter.steps.first else { return }
 
         step.present(false)
-        flowPresentAction(flowter.flowContainer)
+
+        let presentFlow = { [weak flowContainer = flowter.flowContainer] in
+            guard let container = flowContainer else { return }
+            flowPresentAction(container)
+        }
+        presentFlow()
     }
 }
