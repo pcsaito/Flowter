@@ -7,6 +7,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     public typealias EndFlowStepActionType = (_ container: ContainerType) -> Void
 
     internal var steps = [FlowStepProtocol]()
+
     private let presentAction:  DefaultStepActionType
     private let dismissAction:  DefaultStepActionType
 
@@ -48,6 +49,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
                 mutableStep.endFlowAction = {
                     endAction()
                     self.clearSteps()
+                    self.clearNavigation()
                 }
             }
         }
@@ -71,10 +73,15 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     }
 
     //private methods
-    private func clearSteps() {
-        if let navigationContainer = flowContainer as? UINavigationController {
+    private func clearNavigation() {
+        //fixme
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let navigationContainer = self?.flowContainer as? UINavigationController else { return }
             navigationContainer.viewControllers = [UIViewController]()
         }
+    }
+
+    private func clearSteps() {
         steps.forEach { $0.destroy() }
         steps.removeAll()
     }
