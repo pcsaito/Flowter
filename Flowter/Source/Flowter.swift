@@ -40,16 +40,14 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         if step.isLastStep, let endFlowAction = step.endFlowAction {
             steps.forEach { (eachStep) in
                 var mutableStep = eachStep
+                var endAction = endFlowAction
                 if let definedEndStep = mutableStep.endFlowAction {
-                    mutableStep.endFlowAction = { [weak self] in
-                        definedEndStep()
-                        self?.clearSteps()
-                    }
-                } else {
-                    mutableStep.endFlowAction = { [weak self] in
-                        endFlowAction()
-                        self?.clearSteps()
-                    }
+                    endAction = definedEndStep
+                }
+
+                mutableStep.endFlowAction = {
+                    endAction()
+                    self.clearSteps()
                 }
             }
         }
@@ -72,10 +70,20 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         return FinishedFlowter(flowter: flow)
     }
 
+    //private methods
     private func clearSteps() {
+        if let navigationContainer = flowContainer as? UINavigationController {
+            navigationContainer.viewControllers = [UIViewController]()
+        }
         steps.forEach { $0.destroy() }
         steps.removeAll()
     }
+
+    #if DEBUG
+    deinit {
+        print("Bye Flowter: \(self)")
+    }
+    #endif
 }
 
 //Convenience initializers

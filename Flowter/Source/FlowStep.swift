@@ -1,5 +1,11 @@
 import Foundation
 
+public struct MakeStep<ControllerType: FlowStepViewControllerProtocol, ContainerType: UIViewController> {
+    public func make(with factory: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
+        return FlowStep<ControllerType,ContainerType>(with: factory)
+    }
+}
+
 internal protocol FlowStepProtocol {
     var isLastStep: Bool { get }
     var nextStep: FlowStepProtocol? { get set }
@@ -27,7 +33,7 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
 
     lazy var viewController: ControllerType = { [unowned self] in
         self.viewControllerFactory()
-        }()
+    }()
 
     public init(with factory: @escaping ViewControllerFactoryType) {
         self.viewControllerFactory = factory
@@ -45,6 +51,7 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
         endFlowAction = action
     }
 
+    //private methods
     internal func present(_ updating: Bool = false) {
         guard let containerController = container else { fatalError("Flow Step does not have a container") }
 
@@ -74,10 +81,10 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
             viewController.flow = nil
         }
     }
-}
 
-public struct MakeStep<ControllerType: FlowStepViewControllerProtocol, ContainerType: UIViewController> {
-    public func make(with factory: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
-        return FlowStep<ControllerType,ContainerType>(with: factory)
+    #if DEBUG
+    deinit {
+        print("Bye FlowStep: \(!isLastStep ? self.viewController.description : "EndStep")")
     }
+    #endif
 }
