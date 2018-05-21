@@ -14,6 +14,14 @@
 		3A28E22F20AE1BB50028801C /* FlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22E20AE1BB50028801C /* FlowStep.swift */; };
 		3A28E23220AE1C050028801C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E23120AE1C050028801C /* UIKit.framework */; };
 		3A28E23420AE1CBA0028801C /* FlowStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */; };
+		3A98C52520B35DB800F76A06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52420B35DB800F76A06 /* AppDelegate.swift */; };
+		3A98C52720B35DB800F76A06 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52620B35DB800F76A06 /* InitialViewController.swift */; };
+		3A98C52A20B35DB800F76A06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A98C52820B35DB800F76A06 /* Main.storyboard */; };
+		3A98C52C20B35DBA00F76A06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A98C52B20B35DBA00F76A06 /* Assets.xcassets */; };
+		3A98C52F20B35DBA00F76A06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A98C52D20B35DBA00F76A06 /* LaunchScreen.storyboard */; };
+		3A98C53620B35DE800F76A06 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C53520B35DE800F76A06 /* TestViewController.swift */; };
+		3A98C53920B35E1700F76A06 /* Flowter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; };
+		3A98C53B20B35E4700F76A06 /* Flowter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AEB906920AF7C9C004D404B /* FlowStepInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */; };
 		3AEB906B20AF7CFC004D404B /* FinishedFlowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */; };
 /* End PBXBuildFile section */
@@ -26,7 +34,28 @@
 			remoteGlobalIDString = 3A28E21120AE1B450028801C;
 			remoteInfo = Flowter;
 		};
+		3A98C53720B35E1200F76A06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A28E20920AE1B450028801C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A28E21120AE1B450028801C;
+			remoteInfo = Flowter;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3A98C53A20B35E2300F76A06 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3A98C53B20B35E4700F76A06 /* Flowter.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3A28E21220AE1B450028801C /* Flowter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flowter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +68,14 @@
 		3A28E22E20AE1BB50028801C /* FlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStep.swift; sourceTree = "<group>"; };
 		3A28E23120AE1C050028801C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepViewController.swift; sourceTree = "<group>"; };
+		3A98C52220B35DB800F76A06 /* FlowterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A98C52420B35DB800F76A06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3A98C52620B35DB800F76A06 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		3A98C52920B35DB800F76A06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3A98C52B20B35DBA00F76A06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3A98C52E20B35DBA00F76A06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3A98C53020B35DBA00F76A06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A98C53520B35DE800F76A06 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepInfo.swift; sourceTree = "<group>"; };
 		3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedFlowter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,6 +97,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3A98C51F20B35DB800F76A06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A98C53920B35E1700F76A06 /* Flowter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -68,6 +113,7 @@
 			children = (
 				3A28E21420AE1B450028801C /* Flowter */,
 				3A28E21F20AE1B460028801C /* FlowterTests */,
+				3A98C52320B35DB800F76A06 /* FlowterDemo */,
 				3A28E21320AE1B450028801C /* Products */,
 				3A28E23020AE1C050028801C /* Frameworks */,
 			);
@@ -78,6 +124,7 @@
 			children = (
 				3A28E21220AE1B450028801C /* Flowter.framework */,
 				3A28E21B20AE1B460028801C /* FlowterTests.xctest */,
+				3A98C52220B35DB800F76A06 /* FlowterDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,6 +164,28 @@
 				3A28E22E20AE1BB50028801C /* FlowStep.swift */,
 				3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */,
 				3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		3A98C52320B35DB800F76A06 /* FlowterDemo */ = {
+			isa = PBXGroup;
+			children = (
+				3A98C53420B35DD400F76A06 /* Source */,
+				3A98C52820B35DB800F76A06 /* Main.storyboard */,
+				3A98C52B20B35DBA00F76A06 /* Assets.xcassets */,
+				3A98C52D20B35DBA00F76A06 /* LaunchScreen.storyboard */,
+				3A98C53020B35DBA00F76A06 /* Info.plist */,
+			);
+			path = FlowterDemo;
+			sourceTree = "<group>";
+		};
+		3A98C53420B35DD400F76A06 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				3A98C52420B35DB800F76A06 /* AppDelegate.swift */,
+				3A98C52620B35DB800F76A06 /* InitialViewController.swift */,
+				3A98C53520B35DE800F76A06 /* TestViewController.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -171,6 +240,25 @@
 			productReference = 3A28E21B20AE1B460028801C /* FlowterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3A98C52120B35DB800F76A06 /* FlowterDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A98C53120B35DBA00F76A06 /* Build configuration list for PBXNativeTarget "FlowterDemo" */;
+			buildPhases = (
+				3A98C51E20B35DB800F76A06 /* Sources */,
+				3A98C51F20B35DB800F76A06 /* Frameworks */,
+				3A98C52020B35DB800F76A06 /* Resources */,
+				3A98C53A20B35E2300F76A06 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3A98C53820B35E1200F76A06 /* PBXTargetDependency */,
+			);
+			name = FlowterDemo;
+			productName = FlowterDemo;
+			productReference = 3A98C52220B35DB800F76A06 /* FlowterDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,6 +276,9 @@
 					3A28E21A20AE1B460028801C = {
 						CreatedOnToolsVersion = 9.3;
 					};
+					3A98C52120B35DB800F76A06 = {
+						CreatedOnToolsVersion = 9.3;
+					};
 				};
 			};
 			buildConfigurationList = 3A28E20C20AE1B450028801C /* Build configuration list for PBXProject "Flowter" */;
@@ -196,6 +287,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 3A28E20820AE1B450028801C;
 			productRefGroup = 3A28E21320AE1B450028801C /* Products */;
@@ -204,6 +296,7 @@
 			targets = (
 				3A28E21120AE1B450028801C /* Flowter */,
 				3A28E21A20AE1B460028801C /* FlowterTests */,
+				3A98C52120B35DB800F76A06 /* FlowterDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -220,6 +313,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A98C52020B35DB800F76A06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A98C52F20B35DBA00F76A06 /* LaunchScreen.storyboard in Resources */,
+				3A98C52C20B35DBA00F76A06 /* Assets.xcassets in Resources */,
+				3A98C52A20B35DB800F76A06 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +349,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3A98C51E20B35DB800F76A06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A98C52720B35DB800F76A06 /* InitialViewController.swift in Sources */,
+				3A98C53620B35DE800F76A06 /* TestViewController.swift in Sources */,
+				3A98C52520B35DB800F76A06 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -254,7 +367,31 @@
 			target = 3A28E21120AE1B450028801C /* Flowter */;
 			targetProxy = 3A28E21D20AE1B460028801C /* PBXContainerItemProxy */;
 		};
+		3A98C53820B35E1200F76A06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A28E21120AE1B450028801C /* Flowter */;
+			targetProxy = 3A98C53720B35E1200F76A06 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3A98C52820B35DB800F76A06 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A98C52920B35DB800F76A06 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3A98C52D20B35DBA00F76A06 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A98C52E20B35DBA00F76A06 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3A28E22420AE1B460028801C /* Debug */ = {
@@ -471,6 +608,47 @@
 			};
 			name = Release;
 		};
+		3A98C53220B35DBA00F76A06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FlowterDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.Zazcar.FlowterDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3A98C53320B35DBA00F76A06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FlowterDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.Zazcar.FlowterDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -497,6 +675,15 @@
 			buildConfigurations = (
 				3A28E22A20AE1B460028801C /* Debug */,
 				3A28E22B20AE1B460028801C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A98C53120B35DBA00F76A06 /* Build configuration list for PBXNativeTarget "FlowterDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A98C53220B35DBA00F76A06 /* Debug */,
+				3A98C53320B35DBA00F76A06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
