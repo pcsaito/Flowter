@@ -7,30 +7,92 @@
 //
 
 import XCTest
-@testable import Flowter
+@testable import FlowterDemo
 
-class FlowterTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class FlowterTests: KIFTestCase {
+    func startFlow() {
+        tester().tapView(withAccessibilityLabel: "startFlowButton")
+        tester().waitForView(withAccessibilityLabel: "Flow Start")
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+
+    func closeFlow() {
+        tester().tapView(withAccessibilityLabel: "closeButton")
+        tester().waitForView(withAccessibilityLabel: "InitialViewController")
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+    func fowardFlow() {
+        tester().tapView(withAccessibilityLabel: "nextButton")
+        tester().waitForView(withAccessibilityLabel: "1st Step")
+
+        tester().tapView(withAccessibilityLabel: "nextButton")
+        tester().waitForView(withAccessibilityLabel: "2nd Step")
+
+        tester().tapView(withAccessibilityLabel: "nextButton")
+        tester().waitForView(withAccessibilityLabel: "3rd Step")
+
+        tester().tapView(withAccessibilityLabel: "nextButton")
+        tester().waitForView(withAccessibilityLabel: "Flow Ending")
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+
+    func backFlow() {
+        tester().tapView(withAccessibilityLabel: "backButton")
+        tester().waitForView(withAccessibilityLabel: "3rd Step")
+
+        tester().tapView(withAccessibilityLabel: "backButton")
+        tester().waitForView(withAccessibilityLabel: "2nd Step")
+
+        tester().tapView(withAccessibilityLabel: "backButton")
+        tester().waitForView(withAccessibilityLabel: "1st Step")
+
+        tester().tapView(withAccessibilityLabel: "backButton")
+        tester().waitForView(withAccessibilityLabel: "Flow Start")
+    }
+
+    func testOpenFlow() {
+        startFlow()
+        closeFlow()
+    }
+
+    func testFowardFlow() {
+        startFlow()
+        fowardFlow()
+        closeFlow()
+    }
+
+    func testBackFlow() {
+        startFlow()
+        fowardFlow()
+        backFlow()
+        closeFlow()
+    }
+
+    func testCompleteFlow() {
+        startFlow()
+        fowardFlow()
+
+        tester().tapView(withAccessibilityLabel: "nextButton")
+        tester().waitForView(withAccessibilityLabel: "InitialViewController")
+    }
+
+    func testCloseOnMidFlow() {
+        startFlow()
+
+        tester().tapView(withAccessibilityLabel: "nextButton")
+        tester().waitForView(withAccessibilityLabel: "1st Step")
+
+        tester().tapView(withAccessibilityLabel: "nextButton")
+        tester().waitForView(withAccessibilityLabel: "2nd Step")
+
+        closeFlow()
+    }
+
+    func testStressFlow() {
+        startFlow()
+
+        for _ in 0...5 {
+            fowardFlow()
+            backFlow()
         }
+        closeFlow()
     }
-    
 }

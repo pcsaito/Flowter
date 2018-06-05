@@ -14,6 +14,7 @@
 		3A28E22F20AE1BB50028801C /* FlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22E20AE1BB50028801C /* FlowStep.swift */; };
 		3A28E23220AE1C050028801C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E23120AE1C050028801C /* UIKit.framework */; };
 		3A28E23420AE1CBA0028801C /* FlowStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */; };
+		3A7DD79E20C7240E008A7DF6 /* XCTestCase+KIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */; };
 		3A98C52520B35DB800F76A06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52420B35DB800F76A06 /* AppDelegate.swift */; };
 		3A98C52720B35DB800F76A06 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52620B35DB800F76A06 /* InitialViewController.swift */; };
 		3A98C52A20B35DB800F76A06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A98C52820B35DB800F76A06 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		3A98C53B20B35E4700F76A06 /* Flowter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AEB906920AF7C9C004D404B /* FlowStepInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */; };
 		3AEB906B20AF7CFC004D404B /* FinishedFlowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */; };
+		B21BACDDCB4C25CF757CCB14 /* Pods_FlowterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719B7A1B19EC7F20D8BD6506 /* Pods_FlowterTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3A28E21120AE1B450028801C;
 			remoteInfo = Flowter;
+		};
+		3A7DD79A20C5A51F008A7DF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A28E20920AE1B450028801C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A98C52120B35DB800F76A06;
+			remoteInfo = FlowterDemo;
 		};
 		3A98C53720B35E1200F76A06 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -68,6 +77,8 @@
 		3A28E22E20AE1BB50028801C /* FlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStep.swift; sourceTree = "<group>"; };
 		3A28E23120AE1C050028801C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepViewController.swift; sourceTree = "<group>"; };
+		3A7DD79C20C5BE37008A7DF6 /* FlowterTests-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FlowterTests-BridgingHeader.h"; sourceTree = "<group>"; };
+		3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+KIF.swift"; sourceTree = "<group>"; };
 		3A98C52220B35DB800F76A06 /* FlowterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A98C52420B35DB800F76A06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A98C52620B35DB800F76A06 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +89,9 @@
 		3A98C53520B35DE800F76A06 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepInfo.swift; sourceTree = "<group>"; };
 		3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedFlowter.swift; sourceTree = "<group>"; };
+		3B776743E69BB09DB512E35C /* Pods-FlowterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlowterTests/Pods-FlowterTests.release.xcconfig"; sourceTree = "<group>"; };
+		719B7A1B19EC7F20D8BD6506 /* Pods_FlowterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlowterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B804A4463CE5111C8EC5479 /* Pods-FlowterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlowterTests/Pods-FlowterTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A28E21C20AE1B460028801C /* Flowter.framework in Frameworks */,
+				B21BACDDCB4C25CF757CCB14 /* Pods_FlowterTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +131,7 @@
 				3A98C52320B35DB800F76A06 /* FlowterDemo */,
 				3A28E21320AE1B450028801C /* Products */,
 				3A28E23020AE1C050028801C /* Frameworks */,
+				94BE2C58FB72B8E1A901F283 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,7 +159,9 @@
 			isa = PBXGroup;
 			children = (
 				3A28E22020AE1B460028801C /* FlowterTests.swift */,
+				3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */,
 				3A28E22220AE1B460028801C /* Info.plist */,
+				3A7DD79C20C5BE37008A7DF6 /* FlowterTests-BridgingHeader.h */,
 			);
 			path = FlowterTests;
 			sourceTree = "<group>";
@@ -152,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				3A28E23120AE1C050028801C /* UIKit.framework */,
+				719B7A1B19EC7F20D8BD6506 /* Pods_FlowterTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -190,6 +209,15 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		94BE2C58FB72B8E1A901F283 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8B804A4463CE5111C8EC5479 /* Pods-FlowterTests.debug.xcconfig */,
+				3B776743E69BB09DB512E35C /* Pods-FlowterTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -226,14 +254,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A28E22920AE1B460028801C /* Build configuration list for PBXNativeTarget "FlowterTests" */;
 			buildPhases = (
+				9A5C347BBD989DD20B6EA7D2 /* [CP] Check Pods Manifest.lock */,
 				3A28E21720AE1B460028801C /* Sources */,
 				3A28E21820AE1B460028801C /* Frameworks */,
 				3A28E21920AE1B460028801C /* Resources */,
+				3D888322B6D0608F0E9A2ACD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				3A28E21E20AE1B460028801C /* PBXTargetDependency */,
+				3A7DD79B20C5A51F008A7DF6 /* PBXTargetDependency */,
 			);
 			name = FlowterTests;
 			productName = FlowterTests;
@@ -275,6 +306,7 @@
 					};
 					3A28E21A20AE1B460028801C = {
 						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 3A98C52120B35DB800F76A06;
 					};
 					3A98C52120B35DB800F76A06 = {
 						CreatedOnToolsVersion = 9.3;
@@ -328,6 +360,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3D888322B6D0608F0E9A2ACD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FlowterTests/Pods-FlowterTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/KIF/KIF.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KIF.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FlowterTests/Pods-FlowterTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A5C347BBD989DD20B6EA7D2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlowterTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3A28E20D20AE1B450028801C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -346,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A28E22120AE1B460028801C /* FlowterTests.swift in Sources */,
+				3A7DD79E20C7240E008A7DF6 /* XCTestCase+KIF.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +438,11 @@
 			isa = PBXTargetDependency;
 			target = 3A28E21120AE1B450028801C /* Flowter */;
 			targetProxy = 3A28E21D20AE1B460028801C /* PBXContainerItemProxy */;
+		};
+		3A7DD79B20C5A51F008A7DF6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A98C52120B35DB800F76A06 /* FlowterDemo */;
+			targetProxy = 3A7DD79A20C5A51F008A7DF6 /* PBXContainerItemProxy */;
 		};
 		3A98C53820B35E1200F76A06 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -574,10 +651,14 @@
 		};
 		3A28E22A20AE1B460028801C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B804A4463CE5111C8EC5479 /* Pods-FlowterTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U2CVT2W6Q5;
 				INFOPLIST_FILE = FlowterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -586,16 +667,24 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.Zazcar.FlowterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "FlowterTests/FlowterTests-BridgingHeader.h";
 				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlowterDemo.app/FlowterDemo";
 			};
 			name = Debug;
 		};
 		3A28E22B20AE1B460028801C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B776743E69BB09DB512E35C /* Pods-FlowterTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = U2CVT2W6Q5;
 				INFOPLIST_FILE = FlowterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -604,7 +693,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.Zazcar.FlowterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "FlowterTests/FlowterTests-BridgingHeader.h";
 				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlowterDemo.app/FlowterDemo";
 			};
 			name = Release;
 		};
@@ -614,6 +707,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = U2CVT2W6Q5;
 				INFOPLIST_FILE = FlowterDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -634,6 +729,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = U2CVT2W6Q5;
 				INFOPLIST_FILE = FlowterDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (

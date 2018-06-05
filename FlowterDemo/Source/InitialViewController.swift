@@ -15,7 +15,7 @@ class InitialViewController: UIViewController {
             })
             .addStep { $0.make(with: TestViewController(withLabel: "1st Step"))}
             .addStep { $0.make(with: TestViewController(withLabel: "2nd Step"))}
-            .addStep { $0.make(with: TestViewController(withLabel: "3nd Step"))}
+            .addStep { $0.make(with: TestViewController(withLabel: "3rd Step"))}
             .addStep(with: { (stepFactory) -> FlowStep<TestViewController, UINavigationController> in
                 let step = stepFactory.make(with: TestViewController(withLabel: "Flow Ending"))
                 step.setPresentAction({ (welcomeVC, container) in
@@ -40,12 +40,14 @@ extension InitialViewController {
     }
 
     func configureView() {
+        view.accessibilityLabel = "InitialViewController"
         view.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
 
         let buttonWidth: CGFloat = 300
         let buttonHeight: CGFloat = 100
 
         let startFlowButton = UIButton(type: .custom)
+        startFlowButton.accessibilityLabel = "startFlowButton"
         startFlowButton.setTitle("Present Flow", for: .normal)
         startFlowButton.setTitleColor(.blue, for: .normal)
         startFlowButton.addTarget(self, action: #selector(startFlow), for: .touchUpInside)

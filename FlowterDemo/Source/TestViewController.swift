@@ -10,6 +10,7 @@ class TestViewController: UIViewController, FlowStepViewControllerProtocol {
     let label = UILabel(frame: .zero)
     let backButton = UIButton(type: .custom)
     let nextButton = UIButton(type: .custom)
+    let closeButton = UIButton(type: .custom)
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -18,6 +19,7 @@ class TestViewController: UIViewController, FlowStepViewControllerProtocol {
     init(withLabel: String) {
         labelString = withLabel
         super.init(nibName: nil, bundle: nil)
+        self.accessibilityLabel = withLabel
     }
 
     override func viewDidLoad() {
@@ -31,6 +33,7 @@ class TestViewController: UIViewController, FlowStepViewControllerProtocol {
         view.addSubview(label)
         view.addSubview(backButton)
         view.addSubview(nextButton)
+        view.addSubview(closeButton)
 
         label.text = labelString
         label.textAlignment = .center
@@ -38,6 +41,7 @@ class TestViewController: UIViewController, FlowStepViewControllerProtocol {
         label.frame = CGRect(x: 0, y: 0, width: 300, height: 100)
         label.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
 
+        backButton.accessibilityLabel = "backButton"
         backButton.setTitle("back", for: .normal)
         backButton.setTitleColor(.blue, for: .normal)
         backButton.addTarget(self, action: #selector(backStep), for: .touchUpInside)
@@ -46,6 +50,7 @@ class TestViewController: UIViewController, FlowStepViewControllerProtocol {
                                   width: buttonWidth,
                                   height: buttonHeight)
 
+        nextButton.accessibilityLabel = "nextButton"
         nextButton.setTitle("next", for: .normal)
         nextButton.setTitleColor(UIColor.blue, for: .normal)
         nextButton.addTarget(self, action: #selector(nextStep), for: .touchUpInside)
@@ -53,6 +58,16 @@ class TestViewController: UIViewController, FlowStepViewControllerProtocol {
                                   y: view.bounds.height - (buttonMargin + buttonHeight),
                                   width: buttonWidth,
                                   height: buttonHeight)
+
+        closeButton.accessibilityLabel = "closeButton"
+        closeButton.setTitle("close", for: .normal)
+        closeButton.setTitleColor(UIColor.blue, for: .normal)
+        closeButton.addTarget(self, action: #selector(closeFlow), for: .touchUpInside)
+        closeButton.frame = CGRect(x: (view.bounds.width - buttonWidth) / 2,
+                                  y: buttonMargin,
+                                  width: buttonWidth,
+                                  height: buttonHeight)
+
     }
 
     @objc
@@ -63,6 +78,11 @@ class TestViewController: UIViewController, FlowStepViewControllerProtocol {
     @objc
     private func nextStep() {
         flow?.next()
+    }
+
+    @objc
+    private func closeFlow() {
+        flow?.endFlow()
     }
 
     func setAsWelcomeStep() {
