@@ -17,7 +17,7 @@ class FlowterTests: KIFTestCase {
 
     func closeFlow() {
         tester().tapView(withAccessibilityLabel: "closeButton")
-        tester().waitForView(withAccessibilityLabel: "InitialViewController")
+        tester().waitForView(withAccessibilityLabel: "HomeViewController")
     }
 
     func fowardFlow() {
@@ -71,7 +71,7 @@ class FlowterTests: KIFTestCase {
         fowardFlow()
 
         tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "InitialViewController")
+        tester().waitForView(withAccessibilityLabel: "HomeViewController")
     }
 
     func testCloseOnMidFlow() {

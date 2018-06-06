@@ -1,5 +1,5 @@
 //
-//  InitialViewController.swift
+//  HomeViewController.swift
 //  FlowterDemo
 //
 //  Created by Paulo Cesar Saito on 21/05/18.
@@ -9,23 +9,23 @@
 import UIKit
 import Flowter
 
-class InitialViewController: UIViewController {
+class HomeViewController: UIViewController {
     @objc
     func startFlow() {
         Flowter(with: UINavigationController())
-            .addStep(with: { (stepFactory) -> FlowStep<TestViewController, UINavigationController> in
-                let step = stepFactory.make(with: TestViewController(withLabel: "Flow Start"))
+            .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
+                let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
                 step.setPresentAction({ (welcomeVC, container) in
                     welcomeVC.setAsWelcomeStep()
                     container.pushViewController(welcomeVC, animated: true)
                 })
                 return step
             })
-            .addStep { $0.make(with: TestViewController(withLabel: "1st Step"))}
-            .addStep { $0.make(with: TestViewController(withLabel: "2nd Step"))}
-            .addStep { $0.make(with: TestViewController(withLabel: "3rd Step"))}
-            .addStep(with: { (stepFactory) -> FlowStep<TestViewController, UINavigationController> in
-                let step = stepFactory.make(with: TestViewController(withLabel: "Flow Ending"))
+            .addStep { $0.make(with: StepViewController(withLabel: "1st Step"))}
+            .addStep { $0.make(with: StepViewController(withLabel: "2nd Step"))}
+            .addStep { $0.make(with: StepViewController(withLabel: "3rd Step"))}
+            .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
+                let step = stepFactory.make(with: StepViewController(withLabel: "Flow Ending"))
                 step.setPresentAction({ (welcomeVC, container) in
                     welcomeVC.setAsLastStep()
                     container.pushViewController(welcomeVC, animated: true)
@@ -41,14 +41,14 @@ class InitialViewController: UIViewController {
     }
 }
 
-extension InitialViewController {
+extension HomeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
     }
 
     func configureView() {
-        view.accessibilityLabel = "InitialViewController"
+        view.accessibilityLabel = "HomeViewController"
         view.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
 
         let buttonWidth: CGFloat = 300

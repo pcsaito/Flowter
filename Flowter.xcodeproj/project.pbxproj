@@ -16,11 +16,11 @@
 		3A28E23420AE1CBA0028801C /* Flowtable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E23320AE1CBA0028801C /* Flowtable.swift */; };
 		3A7DD79E20C7240E008A7DF6 /* XCTestCase+KIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */; };
 		3A98C52520B35DB800F76A06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52420B35DB800F76A06 /* AppDelegate.swift */; };
-		3A98C52720B35DB800F76A06 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52620B35DB800F76A06 /* InitialViewController.swift */; };
+		3A98C52720B35DB800F76A06 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52620B35DB800F76A06 /* HomeViewController.swift */; };
 		3A98C52A20B35DB800F76A06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A98C52820B35DB800F76A06 /* Main.storyboard */; };
 		3A98C52C20B35DBA00F76A06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A98C52B20B35DBA00F76A06 /* Assets.xcassets */; };
 		3A98C52F20B35DBA00F76A06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A98C52D20B35DBA00F76A06 /* LaunchScreen.storyboard */; };
-		3A98C53620B35DE800F76A06 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C53520B35DE800F76A06 /* TestViewController.swift */; };
+		3A98C53620B35DE800F76A06 /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C53520B35DE800F76A06 /* StepViewController.swift */; };
 		3A98C53920B35E1700F76A06 /* Flowter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; };
 		3A98C53B20B35E4700F76A06 /* Flowter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AEB906920AF7C9C004D404B /* FlowStepInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */; };
@@ -81,12 +81,12 @@
 		3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+KIF.swift"; sourceTree = "<group>"; };
 		3A98C52220B35DB800F76A06 /* FlowterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A98C52420B35DB800F76A06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A98C52620B35DB800F76A06 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		3A98C52620B35DB800F76A06 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3A98C52920B35DB800F76A06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A98C52B20B35DBA00F76A06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A98C52E20B35DBA00F76A06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A98C53020B35DBA00F76A06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A98C53520B35DE800F76A06 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		3A98C53520B35DE800F76A06 /* StepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
 		3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepInfo.swift; sourceTree = "<group>"; };
 		3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedFlowter.swift; sourceTree = "<group>"; };
 		3B776743E69BB09DB512E35C /* Pods-FlowterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlowterTests/Pods-FlowterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,8 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				3A98C52420B35DB800F76A06 /* AppDelegate.swift */,
-				3A98C52620B35DB800F76A06 /* InitialViewController.swift */,
-				3A98C53520B35DE800F76A06 /* TestViewController.swift */,
+				3A98C52620B35DB800F76A06 /* HomeViewController.swift */,
+				3A98C53520B35DE800F76A06 /* StepViewController.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -425,8 +425,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A98C52720B35DB800F76A06 /* InitialViewController.swift in Sources */,
-				3A98C53620B35DE800F76A06 /* TestViewController.swift in Sources */,
+				3A98C52720B35DB800F76A06 /* HomeViewController.swift in Sources */,
+				3A98C53620B35DE800F76A06 /* StepViewController.swift in Sources */,
 				3A98C52520B35DB800F76A06 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
