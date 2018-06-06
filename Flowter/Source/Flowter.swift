@@ -30,6 +30,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         dismissAction = defaultDismissAction
     }
 
+    @discardableResult
     public func addStep<ControllerType: Flowtable>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
         let step = with(MakeStep<ControllerType,ContainerType>())
         step.container = flowContainer
@@ -101,7 +102,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     #endif
 }
 
-//Convenience initializers
+//for convenience initializers usage
 extension Flowter {
     public static func defaultPresent() -> DefaultStepActionType {
         return { (vc, container) in
