@@ -9,7 +9,7 @@
 import Foundation
 
 public struct FlowStepInfo {
-    internal var flowStep: FlowStepProtocol
+    internal var flowStep: FlowStepType
 
     public func next(updating: Bool = false) {
         guard let nextStep = flowStep.nextStep, !nextStep.isLastStep else {

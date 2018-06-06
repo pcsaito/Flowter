@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Flowter
 
-class TestViewController: UIViewController, FlowStepViewControllerProtocol {
+class TestViewController: UIViewController, Flowtable {
     var flow: FlowStepInfo?
 
     let labelString: String

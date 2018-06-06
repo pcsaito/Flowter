@@ -9,17 +9,17 @@
 import Foundation
 
 //should call flowStep.next() or optionally flowStep.back() to continue the flow
-public protocol FlowStepViewControllerProtocol where Self: UIViewController {
+public protocol Flowtable where Self: UIViewController {
     var flow: FlowStepInfo? { get set }
 
     func updateFlowStepViewController()
 }
 
-public extension FlowStepViewControllerProtocol {
+public extension Flowtable {
     func updateFlowStepViewController() { }
 }
 
-internal class EndFlowStubController: UIViewController, FlowStepViewControllerProtocol {
+internal class EndFlowStubController: UIViewController, Flowtable {
     var flow: FlowStepInfo?
 
     init() {

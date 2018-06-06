@@ -13,7 +13,7 @@
 		3A28E22D20AE1B950028801C /* Flowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22C20AE1B950028801C /* Flowter.swift */; };
 		3A28E22F20AE1BB50028801C /* FlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22E20AE1BB50028801C /* FlowStep.swift */; };
 		3A28E23220AE1C050028801C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E23120AE1C050028801C /* UIKit.framework */; };
-		3A28E23420AE1CBA0028801C /* FlowStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */; };
+		3A28E23420AE1CBA0028801C /* Flowtable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E23320AE1CBA0028801C /* Flowtable.swift */; };
 		3A7DD79E20C7240E008A7DF6 /* XCTestCase+KIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */; };
 		3A98C52520B35DB800F76A06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52420B35DB800F76A06 /* AppDelegate.swift */; };
 		3A98C52720B35DB800F76A06 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C52620B35DB800F76A06 /* InitialViewController.swift */; };
@@ -76,7 +76,7 @@
 		3A28E22C20AE1B950028801C /* Flowter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flowter.swift; sourceTree = "<group>"; };
 		3A28E22E20AE1BB50028801C /* FlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStep.swift; sourceTree = "<group>"; };
 		3A28E23120AE1C050028801C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepViewController.swift; sourceTree = "<group>"; };
+		3A28E23320AE1CBA0028801C /* Flowtable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flowtable.swift; sourceTree = "<group>"; };
 		3A7DD79C20C5BE37008A7DF6 /* FlowterTests-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FlowterTests-BridgingHeader.h"; sourceTree = "<group>"; };
 		3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+KIF.swift"; sourceTree = "<group>"; };
 		3A98C52220B35DB800F76A06 /* FlowterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,8 +181,8 @@
 				3A28E22C20AE1B950028801C /* Flowter.swift */,
 				3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */,
 				3A28E22E20AE1BB50028801C /* FlowStep.swift */,
+				3A28E23320AE1CBA0028801C /* Flowtable.swift */,
 				3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */,
-				3A28E23320AE1CBA0028801C /* FlowStepViewController.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -407,7 +407,7 @@
 				3A28E22D20AE1B950028801C /* Flowter.swift in Sources */,
 				3AEB906920AF7C9C004D404B /* FlowStepInfo.swift in Sources */,
 				3AEB906B20AF7CFC004D404B /* FinishedFlowter.swift in Sources */,
-				3A28E23420AE1CBA0028801C /* FlowStepViewController.swift in Sources */,
+				3A28E23420AE1CBA0028801C /* Flowtable.swift in Sources */,
 				3A28E22F20AE1BB50028801C /* FlowStep.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

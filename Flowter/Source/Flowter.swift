@@ -10,11 +10,11 @@ import Foundation
 
 public class Flowter<ContainerType> where ContainerType: UIViewController {
 
-    public typealias StepFactoryType<T: FlowStepViewControllerProtocol> = (_ stepFactory: MakeStep<T,ContainerType>) -> FlowStep<T,ContainerType>
+    public typealias StepFactoryType<T: Flowtable> = (_ stepFactory: MakeStep<T,ContainerType>) -> FlowStep<T,ContainerType>
     public typealias DefaultStepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
     public typealias EndFlowStepActionType = (_ container: ContainerType) -> Void
 
-    internal var steps = [FlowStepProtocol]()
+    internal var steps = [FlowStepType]()
 
     private let presentAction:  DefaultStepActionType
     private let dismissAction:  DefaultStepActionType
@@ -30,7 +30,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         dismissAction = defaultDismissAction
     }
 
-    public func addStep<ControllerType: FlowStepViewControllerProtocol>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
+    public func addStep<ControllerType: Flowtable>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
         let step = with(MakeStep<ControllerType,ContainerType>())
         step.container = flowContainer
 

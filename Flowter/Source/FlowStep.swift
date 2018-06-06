@@ -8,15 +8,15 @@
 
 import Foundation
 
-public struct MakeStep<ControllerType: FlowStepViewControllerProtocol, ContainerType: UIViewController> {
+public struct MakeStep<ControllerType: Flowtable, ContainerType: UIViewController> {
     public func make(with factory: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
         return FlowStep<ControllerType,ContainerType>(with: factory)
     }
 }
 
-internal protocol FlowStepProtocol {
+internal protocol FlowStepType {
     var isLastStep: Bool { get }
-    var nextStep: FlowStepProtocol? { get set }
+    var nextStep: FlowStepType? { get set }
     var endFlowAction: ( () -> Void)? { get set }
 
     func present(_ updating: Bool)
@@ -25,7 +25,7 @@ internal protocol FlowStepProtocol {
     func destroy()
 }
 
-public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerType>: FlowStepProtocol {
+public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
     public typealias StepActionType = ( (_ vc: ControllerType, _ container: ContainerType) -> Void)
     public typealias ViewControllerFactoryType = () -> ControllerType
 
@@ -36,7 +36,7 @@ public class FlowStep<ControllerType: FlowStepViewControllerProtocol, ContainerT
     internal var endFlowAction: ( () -> Void)?
 
     internal var isLastStep: Bool = false
-    internal var nextStep: FlowStepProtocol?
+    internal var nextStep: FlowStepType?
     internal var container: ContainerType?
 
     lazy var viewController: ControllerType = { [unowned self] in
