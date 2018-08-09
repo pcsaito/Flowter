@@ -165,4 +165,4 @@ private func close() {
 ```
 
 ### Don't forget to weaken your selfs when nescessary. 
-####There is a bunch of closure being stored and this is vital to avoid memory leaks when the flow is closed.
+#### There is a bunch of closure being stored and this is vital to avoid memory leaks when the flow is closed.
