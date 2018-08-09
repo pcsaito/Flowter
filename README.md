@@ -132,7 +132,8 @@ A flow can also be built with variable number and type of steps. To do that, sto
 			flowter.addStep { $0.make(with: StepViewController(withLabel: "2nd Step"))}
 		}
 	
-		flowter.addStep { $0.make(with: StepViewController(withLabel: "3rd Step"))}
+		flowter
+			.addStep { $0.make(with: StepViewController(withLabel: "3rd Step"))}
 			.addEndFlowStep { (container) in
 				container.dismiss(animated: true)
 			}
