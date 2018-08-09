@@ -38,13 +38,14 @@ This only specify that your controllers have an var named flow of type FlowStepI
 
 You call this on the controller when it is ready to proceed with the flow:
 ```swift
-	private func nextStep() {
-		flow?.next()
-	}
+private func nextStep() {
+	flow?.next()
+}
 ```
 
 ### Dependency injection
-You can fully customize the factory clousure of each of your step UIViewController subclass, at this moment you can feed it with it needings.
+You can fully customize the factory clousure of each of your step UIViewController subclass, at this moment you can feed it with it's needings.
+
 Enjoy the short versions thanks to the trailing closure and shorthand argument name sugars.
 ```swift
 let newUser = User()
@@ -163,4 +164,5 @@ private func close() {
 }
 ```
 
-### Don't forget to weaken your selfs when nescessary, there is a bunch of closure beign stored and this is vital to avoid memory leaks when the flow is closed.
+### Don't forget to weaken your selfs when nescessary. 
+####There is a bunch of closure being stored and this is vital to avoid memory leaks when the flow is closed.
