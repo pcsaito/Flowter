@@ -45,15 +45,18 @@ You call this on the controller when it is ready to proceed with the flow:
 
 ### Dependency injection
 You can fully customize the factory clousure of each of your step UIViewController subclass, at this moment you can feed it with it needings.
+Enjoy the short versions thanks to the trailing closure and shorthand argument name sugars.
 ```swift
 let newUser = User()
 
 Flowter(with: UINavigationController())
 	.addStep { $0.make(with: FirstStepViewController(withUser: newUser))}
-	.addStep { $0.make(with: {
-		let viewModel = SecondStepViewModel(with: newUser)
-		return SecondStepViewController(with: viewModel)
-	 )}
+	.addStep {
+		$0.make { () -> SecondStepViewController in
+			let viewModel = SecondStepViewModel(with: newUser)
+			return SecondStepViewController(with: viewModel)
+		}
+	}
 	.addStep(with: { (stepFactory) -> FlowStep<ThirdStepViewController, UINavigationController> in
 		let step = stepFactory.make(with: ThirdStepViewController())
 		step.setPresentAction({ (thirdStepVC, container) in
@@ -159,3 +162,5 @@ private func close() {
 	flow.next() 
 }
 ```
+
+### Don't forget to weaken your selfs when nescessary, there is a bunch of closure beign stored and this is vital to avoid memory leaks when the flow is closed.
