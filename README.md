@@ -1,5 +1,5 @@
 ## Flowter
-A lightweight, Swifty and customizable UIViewController flow cordinator
+A lightweight, swifty and customizable UIViewController flow cordinator
 
 ### Install
 #### Carthage
@@ -7,13 +7,14 @@ Just add the entry to your Cartfile:
 ```
 github "zazcarmobile/Flowter"
 ```
-
+Don't forget to run your favorite carthage command.
 
 #### CocoaPods
 To be implented...
 
 ### Basic usage
 Create the flow and set its UIViewControllers and a Containter.
+
 The Flowter can be created anywhere, regarding that you have a reference to who will present your flow, just use it on the startFlow closure:
 ```swift
 	Flowter(with: UINavigationController())
@@ -28,7 +29,8 @@ The Flowter can be created anywhere, regarding that you have a reference to who 
 	}
 ```
 
-Your have to make your controllers conforming to the protocol Flowtable.
+You have to make your controllers conforming to the protocol Flowtable.
+
 This only specify that your controllers have an var named flow of the type FlowStepInfo?
 ```swift
     var flow: FlowStepInfo?
@@ -76,10 +78,11 @@ You have control of the presentation code of your controllers too!
 ```swift
 	    .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
 	        let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
+		
 	        step.setPresentAction({ (welcomeVC, container) in
 	            welcomeVC.setAsWelcomeStep()
 	            container.pushViewController(welcomeVC, animated: false) 
-				//I don't known why I would do this...
+		    //I don't known why I would do this...
 	        })
 	        return step
 	    })
@@ -92,13 +95,14 @@ You have to call the FlowStepInfo method back to navigate back, your step dismis
 ```swift
         .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
             let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
+	    
             step.setPresentAction({ (welcomeVC, container) in
                 container.pushViewController(welcomeVC, animated: false)
-			})
+	    })
 			
             step.setDismissAction({ (welcomeVC, container) in
                 container.dismiss(animated: false, completion: {
-                  //some completion code
+                    //some completion code
                 })
             })
 
@@ -119,16 +123,17 @@ On your Flowtable conforming UIViewController subclass:
 
 ### Code reusage
 You can and should use the same controllers that is already used elsewhere in your App outside a flow!
+
 Just guard or check the existence of the `flow`, or call it using the optional chaining like `flow?.next()`.
 ```swift
     private func close() {
         guard let flow = self?.flow else { 
-			//on stand alone usage just pop the view controller
+	    //on stand alone usage just pop the view controller
             self.navigationController?.popViewController(animated: true)
             return
         }
         
-		//on Flowter usage proceed the flow
+	//on Flowter usage proceed the flow
         flow.next() 
     }
 ```
