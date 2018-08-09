@@ -9,8 +9,12 @@
 import Foundation
 
 public struct MakeStep<ControllerType: Flowtable, ContainerType: UIViewController> {
-    public func make(with factory: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
-        return FlowStep<ControllerType,ContainerType>(with: factory)
+    public func make(withFactoryClosure: @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
+        return FlowStep<ControllerType,ContainerType>(with: withFactoryClosure)
+    }
+
+    public func make(with controller: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
+        return make(withFactoryClosure: controller)
     }
 }
 

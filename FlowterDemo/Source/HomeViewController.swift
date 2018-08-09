@@ -22,8 +22,18 @@ class HomeViewController: UIViewController {
                 return step
             })
             .addStep { $0.make(with: StepViewController(withLabel: "1st Step"))}
-            .addStep { $0.make(with: StepViewController(withLabel: "2nd Step"))}
-            .addStep { $0.make(with: StepViewController(withLabel: "3rd Step"))}
+            .addStep {
+                $0.make { () -> StepViewController in
+                    let title = "2nd Step"
+                    return StepViewController(withLabel: title)
+                }
+            }
+            .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
+                return stepFactory.make(withFactoryClosure: {
+                    let title = "3rd Step"
+                    return StepViewController(withLabel: title)
+                })
+            })
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Ending"))
                 step.setPresentAction({ (welcomeVC, container) in
