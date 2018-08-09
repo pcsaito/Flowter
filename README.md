@@ -121,6 +121,28 @@ On your Flowtable conforming UIViewController subclass:
     }
 ```
 
+### Dynamically built flow
+A flow can also be built with variable number and type of steps. To do that, store the flowter on a let and use this reference to add new steps.
+ ```swift
+ 	private func openFlow(includeSecondStep: Bool) {
+		let flowter = Flowter(with: UINavigationController())
+    		.addStep { $0.make(with: StepViewController(withLabel: "1st Step"))}
+		
+		if includeSecondStep {
+    		flowter.addStep { $0.make(with: StepViewController(withLabel: "2nd Step"))}
+		}
+	
+    	flowter
+			.addStep { $0.make(with: StepViewController(withLabel: "3rd Step"))}
+    		.addEndFlowStep { (container) in
+        		container.dismiss(animated: true)
+    		}
+    		.startFlow { (container) in
+        		myNavigationController.present(container, animated: true)
+			}
+	}
+ ```
+
 ### Code reusage
 You can and should use the same controllers that is already used elsewhere in your App outside a flow!
 
