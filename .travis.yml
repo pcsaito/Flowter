@@ -17,3 +17,6 @@ script:
   - pod install
   - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Flowter.xcworkspace -scheme FlowterDemo -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination 'platform=iOS Simulator,name=iPhone 8' | xcpretty
   - pod lib lint
+  
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -J 'Flowter'

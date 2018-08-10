@@ -6,8 +6,8 @@
 //  Copyright © 2018 Zazcar. All rights reserved.
 //
 
-import XCTest
 import KIF
+import XCTest
 @testable import FlowterDemo
 
 class FlowterTests: KIFTestCase {
