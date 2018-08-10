@@ -10,14 +10,10 @@ Pod::Spec.new do |s|
   s.author             = { "Paulo Cesar Saito" => "paulocsaito@gmail.com" }
 
   s.platform     = :ios, "9.0"
+  s.requires_arc = true
+  
   s.source       = { :git => "https://github.com/Zazcar/Flowter.git", :tag => "v#{s.version}" }
   s.source_files = 'Flowter/Source/*.swift'
   s.exclude_files = 'FlowterDemo'
-    
-  s.requires_arc = true
-
-  # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
-
+ 
 end

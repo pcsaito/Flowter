@@ -5,12 +5,16 @@ A lightweight, swifty and customizable UIViewController flow cordinator
 #### Carthage
 Just add the entry to your Cartfile:
 ```
-github "zazcarmobile/Flowter"
+github "Zazcar/Flowter"
 ```
 Don't forget to run your favorite carthage command.
 
 #### CocoaPods
-To be implented...
+Simply add Flowter to your Podfile:
+```
+pod 'Flowter'
+```
+Don't forget to run your favorite cocoapods command.
 
 ### Basic usage
 Create the flow and set its UIViewControllers and a Containter.
