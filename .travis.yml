@@ -1,0 +1,10 @@
+language: swift
+
+branches:
+  only:
+   - master
+
+xcode_project: Flowter.xcodeproj
+xcode_scheme: Flowter
+osx_image: xcode9.2
+xcode_sdk: iphonesimulator11.2
