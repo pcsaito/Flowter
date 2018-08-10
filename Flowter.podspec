@@ -11,7 +11,7 @@ Pod::Spec.new do |spec|
 
   spec.platform     = :ios, "9.0"
   spec.source       = { :git => "https://github.com/Zazcar/Flowter.git", :tag => "v#{spec.version}" }
-  spec.source_files  = "Flowter/*"
+  spec.source_files  = "Flowter/**/*.swift"
 
   # spec.resource  = "icon.png"
   # spec.resources = "Resources/*.png"
