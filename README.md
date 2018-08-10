@@ -1,3 +1,10 @@
+[![Build Status](https://travis-ci.org/Zazcar/Flowter.svg?branch=master)](https://travis-ci.org/Zazcar/Flowter)
+[![codecov](https://codecov.io/gh/Zazcar/Flowter/branch/master/graph/badge.svg)](https://codecov.io/gh/Zazcar/Flowter)
+[![Pod Platform](https://img.shields.io/cocoapods/p/Flowter.svg?style=flat)](https://cocoapods.org/pods/Flowter)
+[![Pod License](https://img.shields.io/cocoapods/l/Flowter.svg?style=flat)](https://github.com/Skyscanner/Flowter/blob/master/LICENSE)
+[![Pod Version](https://img.shields.io/cocoapods/v/Flowter.svg?style=flat)](https://cocoapods.org/pods/Flowter)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 ## Flowter
 A lightweight, swifty and customizable UIViewController flow cordinator
 
@@ -5,12 +12,16 @@ A lightweight, swifty and customizable UIViewController flow cordinator
 #### Carthage
 Just add the entry to your Cartfile:
 ```
-github "zazcarmobile/Flowter"
+github "Zazcar/Flowter"
 ```
 Don't forget to run your favorite carthage command.
 
-#### CocoaPods
-To be implented...
+#### CocoaPods (soon...)
+Simply add Flowter to your Podfile:
+```
+pod 'Flowter'
+```
+Don't forget to run your favorite cocoapods command.
 
 ### Basic usage
 Create the flow and set its UIViewControllers and a Containter.

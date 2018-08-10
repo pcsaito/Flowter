@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "0940"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3A28E21120AE1B450028801C"
-               BuildableName = "Flowter.framework"
-               BlueprintName = "Flowter"
+               BlueprintIdentifier = "3A98C52120B35DB800F76A06"
+               BuildableName = "FlowterDemo.app"
+               BlueprintName = "FlowterDemo"
+               ReferencedContainer = "container:Flowter.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3A28E21A20AE1B460028801C"
+               BuildableName = "FlowterTests.xctest"
+               BlueprintName = "FlowterTests"
                ReferencedContainer = "container:Flowter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,9 +57,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3A28E21120AE1B450028801C"
-            BuildableName = "Flowter.framework"
-            BlueprintName = "Flowter"
+            BlueprintIdentifier = "3A98C52120B35DB800F76A06"
+            BuildableName = "FlowterDemo.app"
+            BlueprintName = "FlowterDemo"
             ReferencedContainer = "container:Flowter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,15 +76,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3A28E21120AE1B450028801C"
-            BuildableName = "Flowter.framework"
-            BlueprintName = "Flowter"
+            BlueprintIdentifier = "3A98C52120B35DB800F76A06"
+            BuildableName = "FlowterDemo.app"
+            BlueprintName = "FlowterDemo"
             ReferencedContainer = "container:Flowter.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,15 +95,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3A28E21120AE1B450028801C"
-            BuildableName = "Flowter.framework"
-            BlueprintName = "Flowter"
+            BlueprintIdentifier = "3A98C52120B35DB800F76A06"
+            BuildableName = "FlowterDemo.app"
+            BlueprintName = "FlowterDemo"
             ReferencedContainer = "container:Flowter.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

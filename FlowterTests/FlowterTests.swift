@@ -6,6 +6,7 @@
 //  Copyright © 2018 Zazcar. All rights reserved.
 //
 
+import KIF
 import XCTest
 @testable import FlowterDemo
 

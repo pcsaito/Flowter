@@ -31,7 +31,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     }
 
     @discardableResult
-    public func addStep<ControllerType: Flowtable>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
+    public func addStep<ControllerType>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
         let step = with(MakeStep<ControllerType,ContainerType>())
         step.container = flowContainer
 
