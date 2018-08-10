@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import KIF
 @testable import FlowterDemo
 
 class FlowterTests: KIFTestCase {
