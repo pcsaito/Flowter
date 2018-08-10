@@ -9,7 +9,7 @@ github "Zazcar/Flowter"
 ```
 Don't forget to run your favorite carthage command.
 
-#### CocoaPods
+#### CocoaPods (soon...)
 Simply add Flowter to your Podfile:
 ```
 pod 'Flowter'
