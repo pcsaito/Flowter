@@ -8,3 +8,6 @@ xcode_project: Flowter.xcodeproj
 xcode_scheme: Flowter
 osx_image: xcode9.2
 xcode_sdk: iphonesimulator11.2
+
+before_install:
+  - gem install cocoapods -v '1.5.3'
