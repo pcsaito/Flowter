@@ -1,12 +1,14 @@
 [![Build Status](https://travis-ci.org/Zazcar/Flowter.svg?branch=master)](https://travis-ci.org/Zazcar/Flowter)
 [![codecov](https://codecov.io/gh/Zazcar/Flowter/branch/master/graph/badge.svg)](https://codecov.io/gh/Zazcar/Flowter)
 [![Pod Platform](https://img.shields.io/cocoapods/p/Flowter.svg?style=flat)](https://cocoapods.org/pods/Flowter)
-[![Pod License](https://img.shields.io/cocoapods/l/Flowter.svg?style=flat)](https://github.com/Skyscanner/Flowter/blob/master/LICENSE)
+[![Pod License](https://img.shields.io/cocoapods/l/Flowter.svg?style=flat)](https://github.com/Zazcar/Flowter/blob/master/LICENSE)
 [![Pod Version](https://img.shields.io/cocoapods/v/Flowter.svg?style=flat)](https://cocoapods.org/pods/Flowter)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Flowter
-A lightweight, swifty and customizable UIViewController flow cordinator
+A lightweight, swifty and customizable UIViewController flow cordinator.
+
+It support static or dynamically build flows with a nice generic syntax.
 
 ### Install
 #### Carthage
@@ -16,7 +18,7 @@ github "Zazcar/Flowter"
 ```
 Don't forget to run your favorite carthage command.
 
-#### CocoaPods (soon...)
+#### CocoaPods
 Simply add Flowter to your Podfile:
 ```
 pod 'Flowter'
@@ -40,9 +42,9 @@ Flowter(with: UINavigationController())
 	}
 ```
 
-You have to make your controllers conforming to the protocol Flowtable.
+You have to make your controllers conforming to the protocol ```Flowtable```.
 
-This only specify that your controllers have an var named flow of type FlowStepInfo?
+This only specify that your controllers have an var named flow of type ```FlowStepInfo?```
 ```swift
 	var flow: FlowStepInfo?
 ```
