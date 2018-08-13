@@ -12,23 +12,13 @@ import Flowter
 class HomeViewController: UIViewController {
     @objc
     func startFlow() {
-        let flowContainer = UINavigationController()
-        
-        Flowter(with: flowContainer)
+        Flowter(with: UINavigationController())
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
                 
                 step.setPresentAction({ (welcomeVC, container) in
                     welcomeVC.setAsWelcomeStep()
-                    container.pushViewController(welcomeVC, animated: false)
-                })
-                
-                step.setDismissAction({ (welcomeVC, container) in
-                    container.popViewController(animated: false)
-                })
-                
-                step.setEndFlowAction({
-                    flowContainer.dismiss(animated: false, completion: nil)
+                    container.pushViewController(welcomeVC, animated: true)
                 })
                 
                 return step

@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		3A02D82A2122316500BC94CD /* EndFlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02D8292122316500BC94CD /* EndFlowStep.swift */; };
 		3A02D82C212231A400BC94CD /* FlowStepType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02D82B212231A400BC94CD /* FlowStepType.swift */; };
+		3A02D82E212240D400BC94CD /* FlowterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02D82D212240D400BC94CD /* FlowterTests.swift */; };
 		3A28E21C20AE1B460028801C /* Flowter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; };
-		3A28E22120AE1B460028801C /* FlowterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22020AE1B460028801C /* FlowterTests.swift */; };
+		3A28E22120AE1B460028801C /* FlowterDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22020AE1B460028801C /* FlowterDemoTests.swift */; };
 		3A28E22320AE1B460028801C /* Flowter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A28E21520AE1B460028801C /* Flowter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A28E22D20AE1B950028801C /* Flowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22C20AE1B950028801C /* Flowter.swift */; };
 		3A28E22F20AE1BB50028801C /* FlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22E20AE1BB50028801C /* FlowStep.swift */; };
@@ -71,11 +72,12 @@
 /* Begin PBXFileReference section */
 		3A02D8292122316500BC94CD /* EndFlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndFlowStep.swift; sourceTree = "<group>"; };
 		3A02D82B212231A400BC94CD /* FlowStepType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepType.swift; sourceTree = "<group>"; };
+		3A02D82D212240D400BC94CD /* FlowterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowterTests.swift; sourceTree = "<group>"; };
 		3A28E21220AE1B450028801C /* Flowter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flowter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A28E21520AE1B460028801C /* Flowter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flowter.h; sourceTree = "<group>"; };
 		3A28E21620AE1B460028801C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A28E21B20AE1B460028801C /* FlowterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlowterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A28E22020AE1B460028801C /* FlowterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowterTests.swift; sourceTree = "<group>"; };
+		3A28E22020AE1B460028801C /* FlowterDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowterDemoTests.swift; sourceTree = "<group>"; };
 		3A28E22220AE1B460028801C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A28E22C20AE1B950028801C /* Flowter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flowter.swift; sourceTree = "<group>"; };
 		3A28E22E20AE1BB50028801C /* FlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStep.swift; sourceTree = "<group>"; };
@@ -162,7 +164,8 @@
 		3A28E21F20AE1B460028801C /* FlowterTests */ = {
 			isa = PBXGroup;
 			children = (
-				3A28E22020AE1B460028801C /* FlowterTests.swift */,
+				3A02D82D212240D400BC94CD /* FlowterTests.swift */,
+				3A28E22020AE1B460028801C /* FlowterDemoTests.swift */,
 				3A7DD79D20C7240E008A7DF6 /* XCTestCase+KIF.swift */,
 				3A28E22220AE1B460028801C /* Info.plist */,
 				3A7DD79C20C5BE37008A7DF6 /* FlowterTests-BridgingHeader.h */,
@@ -424,8 +427,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A28E22120AE1B460028801C /* FlowterTests.swift in Sources */,
+				3A28E22120AE1B460028801C /* FlowterDemoTests.swift in Sources */,
 				3A7DD79E20C7240E008A7DF6 /* XCTestCase+KIF.swift in Sources */,
+				3A02D82E212240D400BC94CD /* FlowterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

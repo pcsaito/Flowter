@@ -2,98 +2,288 @@
 //  FlowterTests.swift
 //  FlowterTests
 //
-//  Created by Paulo Cesar Saito on 05/06/18.
+//  Created by Paulo Cesar Saito on 13/08/18.
 //  Copyright © 2018 Zazcar. All rights reserved.
 //
 
-import KIF
-import XCTest
-@testable import FlowterDemo
+import Foundation
+@testable import Flowter
 
-class FlowterTests: KIFTestCase {
-    func startFlow() {
-        tester().tapView(withAccessibilityLabel: "startFlowButton")
-        tester().waitForView(withAccessibilityLabel: "Flow Start")
+class FlowterTestViewController: UIViewController, Flowtable {
+    var flow: FlowStepInfo?
+    
+    var updateExpectation = XCTestExpectation(description: "update vc")
+    func updateFlowStepViewController() {
+        updateExpectation.fulfill()
     }
+}
 
-    func closeFlow() {
-        tester().tapView(withAccessibilityLabel: "closeButton")
-        tester().waitForView(withAccessibilityLabel: "HomeViewController")
+class FlowterTests: XCTestCase {
+    let timeout: Double = 5
+    
+    var window: UIWindow {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = UIViewController()
+        window.makeKeyAndVisible()
+        return window
     }
+    
+    func testFlowStepAllocation() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "alloc vc")
 
-    func fowardFlow() {
-        tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "1st Step")
-
-        tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "2nd Step")
-
-        tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "3rd Step")
-
-        tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "Flow Ending")
-    }
-
-    func backFlow() {
-        tester().tapView(withAccessibilityLabel: "backButton")
-        tester().waitForView(withAccessibilityLabel: "3rd Step")
-
-        tester().tapView(withAccessibilityLabel: "backButton")
-        tester().waitForView(withAccessibilityLabel: "2nd Step")
-
-        tester().tapView(withAccessibilityLabel: "backButton")
-        tester().waitForView(withAccessibilityLabel: "1st Step")
-
-        tester().tapView(withAccessibilityLabel: "backButton")
-        tester().waitForView(withAccessibilityLabel: "Flow Start")
-    }
-
-    func testOpenFlow() {
-        startFlow()
-        closeFlow()
-    }
-
-    func testFowardFlow() {
-        startFlow()
-        fowardFlow()
-        closeFlow()
-    }
-
-    func testBackFlow() {
-        startFlow()
-        fowardFlow()
-        backFlow()
-        closeFlow()
-    }
-
-    func testCompleteFlow() {
-        startFlow()
-        fowardFlow()
-
-        tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "HomeViewController")
-    }
-
-    func testCloseOnMidFlow() {
-        startFlow()
-
-        tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "1st Step")
-
-        tester().tapView(withAccessibilityLabel: "nextButton")
-        tester().waitForView(withAccessibilityLabel: "2nd Step")
-
-        closeFlow()
-    }
-
-    func testStressFlow() {
-        startFlow()
-
-        for _ in 0...2 {
-            fowardFlow()
-            backFlow()
+        Flowter(with: flowContainer)
+            .addStep {
+                $0.make { () -> FlowterTestViewController in
+                    expectation.fulfill()
+                    return FlowterTestViewController()
+                }
+            }
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
         }
-        closeFlow()
-    }    
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testFlowStepCustomAllocation() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "alloc vc")
+        
+        Flowter(with: flowContainer)
+            .addStep {
+                $0.make { () -> FlowterTestViewController in
+                    expectation.fulfill()
+                    return FlowterTestViewController()
+                }
+            }
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testFlowStart() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "start")
+        
+        Flowter(with: flowContainer)
+            .addStep { $0.make { FlowterTestViewController() }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false, completion: {
+                    expectation.fulfill()
+                })
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testFlowEnd() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "dismiss")
+        
+        let testingVC = FlowterTestViewController()
+        
+        Flowter(with: flowContainer)
+            .addStep { $0.make { testingVC }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: {
+                    expectation.fulfill()
+                })
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        DispatchQueue.main.async {
+            testingVC.flow?.next()
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testFlowEarlyEnd() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "early dismiss")
+        
+        let testingVC = FlowterTestViewController()
+        
+        Flowter(with: flowContainer)
+            .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UINavigationController> in
+                let step = stepFactory.make(with: testingVC)
+                
+                step.setEndFlowAction({
+                    flowContainer.dismiss(animated: false, completion: {
+                        expectation.fulfill()
+                    })
+                })
+                
+                return step
+            })
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        DispatchQueue.main.async {
+            testingVC.flow?.endFlow()
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testCustomPresentation() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "present")
+        
+        Flowter(with: flowContainer)
+            .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UINavigationController> in
+                let step = stepFactory.make(with: FlowterTestViewController())
+                
+                step.setPresentAction({ (vc, container) in
+                    container.pushViewController(vc, animated: false)
+                    expectation.fulfill()
+                })
+                
+                return step
+            })
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testCustomDefaultPresentation() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "present")
+        
+        let flow = Flowter(with: flowContainer, defaultPresentAction: { (vc, container) in
+            container.pushViewController(vc, animated: false)
+            expectation.fulfill()
+        })
+            
+        flow.addStep { $0.make { FlowterTestViewController() }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testCustomDismiss() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "custom dismiss")
+        
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+        
+        Flowter(with: flowContainer)
+            .addStep { $0.make { testingVC1 }}
+            .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UINavigationController> in
+                let step = stepFactory.make(with: testingVC2)
+                
+                step.setDismissAction({ (vc, container) in
+                    container.popViewController(animated: false)
+                    expectation.fulfill()
+                })
+                
+                return step
+            })
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        DispatchQueue.main.async {
+            testingVC1.flow?.next()
+            DispatchQueue.main.async {
+                testingVC2.flow?.back()
+            }
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testCustomDefaultDismiss() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "custom dismiss")
+        
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+        
+        let flow = Flowter(with: flowContainer, defaultDismissAction: { (vc, container) in
+            container.popViewController(animated: false)
+            expectation.fulfill()
+        })
+
+        flow.addStep { $0.make { testingVC1 }}
+            .addStep { $0.make { testingVC2 }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        DispatchQueue.main.async {
+            testingVC1.flow?.next()
+            DispatchQueue.main.async {
+                testingVC2.flow?.back()
+            }
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testUpdateNext() {
+        let flowContainer = UINavigationController()
+        
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+
+        Flowter(with: flowContainer)
+            .addStep { $0.make { testingVC1 }}
+            .addStep { $0.make { testingVC2 }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        testingVC1.flow?.next(updating: true)
+
+        wait(for: [testingVC2.updateExpectation], timeout: timeout)
+    }
 }
