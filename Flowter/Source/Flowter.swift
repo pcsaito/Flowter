@@ -47,14 +47,31 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
             step.dismissAction = dismissAction
         }
 
-        if step.isLastStep, let endFlowAction = step.endFlowAction {
+        return self
+    }
+
+    public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
+        let endStep = MakeEndStep<ContainerType>().makeEndFlow()
+        endStep.container = flowContainer
+        endStep.isLastStep = true
+        
+        var lastStep = steps.last
+        lastStep?.nextStep = endStep
+        steps.append(endStep)
+        
+        endStep.endFlowAction = { [weak self] in
+            guard let container = self?.flowContainer else { return }
+            action(container)
+        }
+        
+        if let endFlowAction = endStep.endFlowAction {
             steps.forEach { (eachStep) in
                 var mutableStep = eachStep
                 var endAction = endFlowAction
                 if let definedEndStep = mutableStep.endFlowAction {
                     endAction = definedEndStep
                 }
-
+                
                 mutableStep.endFlowAction = {
                     endAction()
                     self.clearSteps()
@@ -63,22 +80,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
             }
         }
 
-        return self
-    }
-
-    public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
-        let flow = self.addStep(with: { [weak self] (_) -> FlowStep<EndFlowStubController, ContainerType> in
-            let step = FlowStep<EndFlowStubController, ContainerType> { EndFlowStubController() }
-            step.isLastStep = true
-
-            step.endFlowAction = { [weak flowContainer = self?.flowContainer] in
-                guard let container = flowContainer else { return }
-                action(container)
-            }
-
-            return step
-        })
-        return FinishedFlowter(flowter: flow)
+        return FinishedFlowter(flowter: self)
     }
 
     //private methods

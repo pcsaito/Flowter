@@ -90,10 +90,10 @@ class FlowterTests: KIFTestCase {
     func testStressFlow() {
         startFlow()
 
-        for _ in 0...3 {
+        for _ in 0...2 {
             fowardFlow()
             backFlow()
         }
         closeFlow()
-    }
+    }    
 }

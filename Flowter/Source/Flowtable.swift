@@ -18,17 +18,3 @@ public protocol Flowtable where Self: UIViewController {
 public extension Flowtable {
     func updateFlowStepViewController() { }
 }
-
-internal class EndFlowStubController: UIViewController, Flowtable {
-    var flow: FlowStepInfo?
-
-    init() {
-        fatalError("EndFlowPlaceholderController should not be instanciated")
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func updateFlowStepViewController() { }
-}

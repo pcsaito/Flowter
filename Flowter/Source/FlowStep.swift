@@ -18,17 +18,6 @@ public struct MakeStep<ControllerType: Flowtable, ContainerType: UIViewControlle
     }
 }
 
-internal protocol FlowStepType {
-    var isLastStep: Bool { get }
-    var nextStep: FlowStepType? { get set }
-    var endFlowAction: ( () -> Void)? { get set }
-
-    func present(_ updating: Bool)
-    func dismiss()
-    
-    func destroy()
-}
-
 public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
     public typealias StepActionType = ( (_ vc: ControllerType, _ container: ContainerType) -> Void)
     public typealias ViewControllerFactoryType = () -> ControllerType

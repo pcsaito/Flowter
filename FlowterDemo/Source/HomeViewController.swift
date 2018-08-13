@@ -12,13 +12,25 @@ import Flowter
 class HomeViewController: UIViewController {
     @objc
     func startFlow() {
-        Flowter(with: UINavigationController())
+        let flowContainer = UINavigationController()
+        
+        Flowter(with: flowContainer)
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
+                
                 step.setPresentAction({ (welcomeVC, container) in
                     welcomeVC.setAsWelcomeStep()
-                    container.pushViewController(welcomeVC, animated: true)
+                    container.pushViewController(welcomeVC, animated: false)
                 })
+                
+                step.setDismissAction({ (welcomeVC, container) in
+                    container.popViewController(animated: false)
+                })
+                
+                step.setEndFlowAction({
+                    flowContainer.dismiss(animated: false, completion: nil)
+                })
+                
                 return step
             })
             .addStep { $0.make(with: StepViewController(withLabel: "1st Step"))}
@@ -37,6 +49,7 @@ class HomeViewController: UIViewController {
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Ending"))
                 step.setPresentAction({ (welcomeVC, container) in
+                    welcomeVC.updateFlowStepViewController()
                     welcomeVC.setAsLastStep()
                     container.pushViewController(welcomeVC, animated: true)
                 })
