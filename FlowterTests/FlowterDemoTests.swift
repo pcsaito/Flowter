@@ -3,7 +3,7 @@
 //  FlowterTests
 //
 //  Created by Paulo Cesar Saito on 05/06/18.
-//  Copyright © 2018 Zazcar. All rights reserved.
+//  Copyright 2018 Zazcar. All rights reserved.
 //
 import KIF
 import XCTest

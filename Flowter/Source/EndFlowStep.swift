@@ -3,7 +3,7 @@
 //  Flowter
 //
 //  Created by Paulo Cesar Saito on 13/08/18.
-//  Copyright © 2018 Zazcar. All rights reserved.
+//  Copyright 2018 Zazcar. All rights reserved.
 //
 import Foundation
 
