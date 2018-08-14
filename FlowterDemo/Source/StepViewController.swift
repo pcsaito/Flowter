@@ -85,7 +85,7 @@ class StepViewController: UIViewController, Flowtable {
 
     @objc
     private func nextStep() {
-        flow?.next()
+        flow?.next(updating: true)
     }
 
     @objc

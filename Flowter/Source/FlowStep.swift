@@ -5,7 +5,6 @@
 //  Created by Paulo Cesar Saito on 17/05/18.
 //  Copyright © 2018 Zazcar. All rights reserved.
 //
-
 import Foundation
 
 public struct MakeStep<ControllerType: Flowtable, ContainerType: UIViewController> {
@@ -16,17 +15,6 @@ public struct MakeStep<ControllerType: Flowtable, ContainerType: UIViewControlle
     public func make(with controller: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
         return make(withFactoryClosure: controller)
     }
-}
-
-internal protocol FlowStepType {
-    var isLastStep: Bool { get }
-    var nextStep: FlowStepType? { get set }
-    var endFlowAction: ( () -> Void)? { get set }
-
-    func present(_ updating: Bool)
-    func dismiss()
-    
-    func destroy()
 }
 
 public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {

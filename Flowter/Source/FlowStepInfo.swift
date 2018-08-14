@@ -5,7 +5,6 @@
 //  Created by Paulo Cesar Saito on 18/05/18.
 //  Copyright © 2018 Zazcar. All rights reserved.
 //
-
 import Foundation
 
 public struct FlowStepInfo {

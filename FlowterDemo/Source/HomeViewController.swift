@@ -15,10 +15,12 @@ class HomeViewController: UIViewController {
         Flowter(with: UINavigationController())
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
+                
                 step.setPresentAction({ (welcomeVC, container) in
                     welcomeVC.setAsWelcomeStep()
                     container.pushViewController(welcomeVC, animated: true)
                 })
+                
                 return step
             })
             .addStep { $0.make(with: StepViewController(withLabel: "1st Step"))}
@@ -37,6 +39,7 @@ class HomeViewController: UIViewController {
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Ending"))
                 step.setPresentAction({ (welcomeVC, container) in
+                    welcomeVC.updateFlowStepViewController()
                     welcomeVC.setAsLastStep()
                     container.pushViewController(welcomeVC, animated: true)
                 })
