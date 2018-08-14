@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "Flowter"
-  s.version      = "0.2.1"
+  s.version      = "0.2.2"
   s.summary      = "A lightweight and customizable UIViewController flow cordinator"
   s.description  = "A lightweight, swifty and customizable UIViewController flow cordinators"
 
