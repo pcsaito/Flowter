@@ -1,3 +1,8 @@
+v0.2.3
+-------
+
+* Add more test cases, fix the .swift-version file
+
 v0.2.2
 -------
 

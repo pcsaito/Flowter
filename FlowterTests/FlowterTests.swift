@@ -3,7 +3,7 @@
 //  FlowterTests
 //
 //  Created by Paulo Cesar Saito on 13/08/18.
-//  Copyright © 2018 Zazcar. All rights reserved.
+//  Copyright 2018 Zazcar. All rights reserved.
 //
 import Foundation
 @testable import Flowter
@@ -284,5 +284,88 @@ class FlowterTests: XCTestCase {
         testingVC1.flow?.next(updating: true)
 
         wait(for: [testingVC2.updateExpectation], timeout: timeout)
+    }
+    
+    func testEmptyFlow() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "dont crash")
+        
+        Flowter(with: flowContainer)
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+                expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: timeout)
+    }
+    
+    func testUIViewControllerContainerFlow() {
+        let flowContainer = UIViewController()
+        
+        let showFirstExpectation = XCTestExpectation(description: "showFirstExpectation")
+        let showSecondExpectation = XCTestExpectation(description: "showSecondExpectation")
+        let hideSecondExpectation = XCTestExpectation(description: "hideSecondExpectation")
+        let closeFlowExpectation = XCTestExpectation(description: "closeFlowExpectation")
+
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+        
+        Flowter(with: flowContainer)
+            .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UIViewController> in
+                let step = stepFactory.make(with: testingVC1)
+                
+                step.setPresentAction({ (vc, container) in
+                    container.addChildViewController(vc)
+                    container.view.addSubview(vc.view)
+                    showFirstExpectation.fulfill()
+                })
+                
+                return step
+            })
+            .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UIViewController> in
+                let step = stepFactory.make(with: testingVC2)
+                
+                step.setPresentAction({ (vc, container) in
+                    container.addChildViewController(vc)
+                    container.view.addSubview(vc.view)
+                    showSecondExpectation.fulfill()
+                })
+                
+                step.setDismissAction({ (vc, container) in
+                    vc.removeFromParentViewController()
+                    vc.view.removeFromSuperview()
+                    hideSecondExpectation.fulfill()
+                })
+                
+                return step
+            })
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: {
+                    closeFlowExpectation.fulfill()
+                })
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        DispatchQueue.main.async {
+            testingVC1.flow?.next()
+            DispatchQueue.main.async {
+                testingVC2.flow?.back()
+                DispatchQueue.main.async {
+                    testingVC1.flow?.next()
+                    DispatchQueue.main.async {
+                        testingVC2.flow?.next()
+                    }
+                }
+            }
+        }
+
+        wait(for: [showFirstExpectation, showSecondExpectation, hideSecondExpectation, closeFlowExpectation], timeout: timeout)
     }
 }

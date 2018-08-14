@@ -3,7 +3,7 @@
 //  FlowterDemo
 //
 //  Created by Paulo Cesar Saito on 21/05/18.
-//  Copyright © 2018 Zazcar. All rights reserved.
+//  Copyright 2018 Zazcar. All rights reserved.
 //
 
 import UIKit
