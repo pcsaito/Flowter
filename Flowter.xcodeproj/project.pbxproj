@@ -10,6 +10,10 @@
 		3A02D82A2122316500BC94CD /* EndFlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02D8292122316500BC94CD /* EndFlowStep.swift */; };
 		3A02D82C212231A400BC94CD /* FlowStepType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02D82B212231A400BC94CD /* FlowStepType.swift */; };
 		3A02D82E212240D400BC94CD /* FlowterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A02D82D212240D400BC94CD /* FlowterTests.swift */; };
+		3A1AD29A2123BE4B00F4D3E6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AD2962123BE4B00F4D3E6 /* README.md */; };
+		3A1AD29B2123BE4B00F4D3E6 /* Flowter.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AD2972123BE4B00F4D3E6 /* Flowter.podspec */; };
+		3A1AD29C2123BE4B00F4D3E6 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AD2982123BE4B00F4D3E6 /* Podfile */; };
+		3A1AD29D2123BE4B00F4D3E6 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AD2992123BE4B00F4D3E6 /* CHANGELOG.md */; };
 		3A28E21C20AE1B460028801C /* Flowter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; };
 		3A28E22120AE1B460028801C /* FlowterDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22020AE1B460028801C /* FlowterDemoTests.swift */; };
 		3A28E22320AE1B460028801C /* Flowter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A28E21520AE1B460028801C /* Flowter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -73,6 +77,10 @@
 		3A02D8292122316500BC94CD /* EndFlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndFlowStep.swift; sourceTree = "<group>"; };
 		3A02D82B212231A400BC94CD /* FlowStepType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepType.swift; sourceTree = "<group>"; };
 		3A02D82D212240D400BC94CD /* FlowterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowterTests.swift; sourceTree = "<group>"; };
+		3A1AD2962123BE4B00F4D3E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		3A1AD2972123BE4B00F4D3E6 /* Flowter.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Flowter.podspec; sourceTree = SOURCE_ROOT; };
+		3A1AD2982123BE4B00F4D3E6 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		3A1AD2992123BE4B00F4D3E6 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		3A28E21220AE1B450028801C /* Flowter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flowter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A28E21520AE1B460028801C /* Flowter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flowter.h; sourceTree = "<group>"; };
 		3A28E21620AE1B460028801C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,6 +164,10 @@
 			children = (
 				3A28E23E20AE26190028801C /* Source */,
 				3A28E21520AE1B460028801C /* Flowter.h */,
+				3A1AD2962123BE4B00F4D3E6 /* README.md */,
+				3A1AD2992123BE4B00F4D3E6 /* CHANGELOG.md */,
+				3A1AD2982123BE4B00F4D3E6 /* Podfile */,
+				3A1AD2972123BE4B00F4D3E6 /* Flowter.podspec */,
 				3A28E21620AE1B460028801C /* Info.plist */,
 			);
 			path = Flowter;
@@ -347,6 +359,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A1AD29C2123BE4B00F4D3E6 /* Podfile in Resources */,
+				3A1AD29B2123BE4B00F4D3E6 /* Flowter.podspec in Resources */,
+				3A1AD29A2123BE4B00F4D3E6 /* README.md in Resources */,
+				3A1AD29D2123BE4B00F4D3E6 /* CHANGELOG.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
