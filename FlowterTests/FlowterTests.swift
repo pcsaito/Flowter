@@ -5,7 +5,7 @@
 //  Created by Paulo Cesar Saito on 13/08/18.
 //  Copyright 2018 Zazcar. All rights reserved.
 //
-import Foundation
+import XCTest
 @testable import Flowter
 
 class FlowterTestViewController: UIViewController, Flowtable {
@@ -17,13 +17,19 @@ class FlowterTestViewController: UIViewController, Flowtable {
     }
 }
 
+let testTimeout: Double = 5
 class FlowterTests: XCTestCase {
-    let timeout: Double = 5
     
     var window: UIWindow {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = UIViewController()
+        let window = UIApplication.shared.keyWindow ?? UIWindow(frame: UIScreen.main.bounds)
+        let root = UIViewController()
+        
+        window.rootViewController = root
         window.makeKeyAndVisible()
+        
+        root.beginAppearanceTransition(true, animated: false) // Triggers viewWillAppear
+        root.endAppearanceTransition() // Triggers viewDidAppear
+
         return window
     }
     
@@ -46,7 +52,7 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testFlowStepCustomAllocation() {
@@ -68,7 +74,7 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testFlowStart() {
@@ -87,7 +93,7 @@ class FlowterTests: XCTestCase {
                 })
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testFlowEnd() {
@@ -112,7 +118,7 @@ class FlowterTests: XCTestCase {
             testingVC.flow?.next()
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testFlowEarlyEnd() {
@@ -145,7 +151,7 @@ class FlowterTests: XCTestCase {
             testingVC.flow?.endFlow()
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testCustomPresentation() {
@@ -171,7 +177,7 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testCustomDefaultPresentation() {
@@ -192,7 +198,7 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testCustomDismiss() {
@@ -225,7 +231,7 @@ class FlowterTests: XCTestCase {
         testingVC1.flow?.next()
         testingVC2.flow?.back()
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testCustomDefaultDismiss() {
@@ -253,7 +259,7 @@ class FlowterTests: XCTestCase {
         testingVC1.flow?.next()
         testingVC2.flow?.back()
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testUpdateNext() {
@@ -275,7 +281,7 @@ class FlowterTests: XCTestCase {
         
         testingVC1.flow?.next(updating: true)
 
-        wait(for: [testingVC2.updateExpectation], timeout: timeout)
+        wait(for: [testingVC2.updateExpectation], timeout: testTimeout)
     }
     
     func testEmptyFlow() {
@@ -292,7 +298,7 @@ class FlowterTests: XCTestCase {
                 expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: timeout)
+        wait(for: [expectation], timeout: testTimeout)
     }
     
     func testUIViewControllerContainerFlow() {
@@ -349,6 +355,6 @@ class FlowterTests: XCTestCase {
         testingVC2.flow?.next()
         testingVC3.flow?.next()
 
-        wait(for: [showExpectation, hideExpectation, closeFlowExpectation], timeout: timeout)
+        wait(for: [showExpectation, hideExpectation, closeFlowExpectation], timeout: testTimeout)
     }
 }

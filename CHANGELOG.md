@@ -1,3 +1,8 @@
+v0.2.5
+-------
+
+* Add CocoaPods test_spec
+
 v0.2.4
 -------
 
