@@ -110,7 +110,8 @@ extension Flowter {
             if let navContainer = container as? UINavigationController {
                 navContainer.pushViewController(vc, animated: true)
             } else {
-                container.present(vc, animated: true)
+                container.addChildViewController(vc)
+                container.view.addSubview(vc.view)
             }
         }
     }
@@ -120,7 +121,8 @@ extension Flowter {
             if let navContainer = container as? UINavigationController {
                 navContainer.popViewController(animated: true)
             } else {
-                container.dismiss(animated: true)
+                vc.removeFromParentViewController()
+                vc.view.removeFromSuperview()
             }
         }
     }

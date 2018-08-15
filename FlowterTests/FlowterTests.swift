@@ -222,12 +222,8 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        DispatchQueue.main.async {
-            testingVC1.flow?.next()
-            DispatchQueue.main.async {
-                testingVC2.flow?.back()
-            }
-        }
+        testingVC1.flow?.next()
+        testingVC2.flow?.back()
         
         wait(for: [expectation], timeout: timeout)
     }
@@ -254,12 +250,8 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        DispatchQueue.main.async {
-            testingVC1.flow?.next()
-            DispatchQueue.main.async {
-                testingVC2.flow?.back()
-            }
-        }
+        testingVC1.flow?.next()
+        testingVC2.flow?.back()
         
         wait(for: [expectation], timeout: timeout)
     }
@@ -306,43 +298,34 @@ class FlowterTests: XCTestCase {
     func testUIViewControllerContainerFlow() {
         let flowContainer = UIViewController()
         
-        let showFirstExpectation = XCTestExpectation(description: "showFirstExpectation")
-        let showSecondExpectation = XCTestExpectation(description: "showSecondExpectation")
-        let hideSecondExpectation = XCTestExpectation(description: "hideSecondExpectation")
+        let showExpectation = XCTestExpectation(description: "showExpectation")
+        let hideExpectation = XCTestExpectation(description: "hideExpectation")
         let closeFlowExpectation = XCTestExpectation(description: "closeFlowExpectation")
 
         let testingVC1 = FlowterTestViewController()
         let testingVC2 = FlowterTestViewController()
-        
+        let testingVC3 = FlowterTestViewController()
+
         Flowter(with: flowContainer)
-            .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UIViewController> in
-                let step = stepFactory.make(with: testingVC1)
-                
-                step.setPresentAction({ (vc, container) in
-                    container.addChildViewController(vc)
-                    container.view.addSubview(vc.view)
-                    showFirstExpectation.fulfill()
-                })
-                
-                return step
-            })
+            .addStep { $0.make(with: testingVC1) }
             .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UIViewController> in
                 let step = stepFactory.make(with: testingVC2)
                 
                 step.setPresentAction({ (vc, container) in
                     container.addChildViewController(vc)
                     container.view.addSubview(vc.view)
-                    showSecondExpectation.fulfill()
+                    showExpectation.fulfill()
                 })
                 
                 step.setDismissAction({ (vc, container) in
                     vc.removeFromParentViewController()
                     vc.view.removeFromSuperview()
-                    hideSecondExpectation.fulfill()
+                    hideExpectation.fulfill()
                 })
                 
                 return step
             })
+            .addStep { $0.make(with: testingVC3) }
             .addEndFlowStep { (container) in
                 container.dismiss(animated: false, completion: {
                     closeFlowExpectation.fulfill()
@@ -353,19 +336,19 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        DispatchQueue.main.async {
-            testingVC1.flow?.next()
-            DispatchQueue.main.async {
-                testingVC2.flow?.back()
-                DispatchQueue.main.async {
-                    testingVC1.flow?.next()
-                    DispatchQueue.main.async {
-                        testingVC2.flow?.next()
-                    }
-                }
-            }
-        }
+        //trigger testingVC2 default presentation and dismiss
+        testingVC1.flow?.next()
+        testingVC2.flow?.back()
 
-        wait(for: [showFirstExpectation, showSecondExpectation, hideSecondExpectation, closeFlowExpectation], timeout: timeout)
+        //trigger testingVC3 default presentation and dismiss
+        testingVC1.flow?.next()
+        testingVC2.flow?.next()
+        testingVC3.flow?.back()
+        
+        //trigger close flow
+        testingVC2.flow?.next()
+        testingVC3.flow?.next()
+
+        wait(for: [showExpectation, hideExpectation, closeFlowExpectation], timeout: timeout)
     }
 }

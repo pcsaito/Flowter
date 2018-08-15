@@ -21,7 +21,7 @@ class StepViewController: UIViewController, Flowtable {
     let closeButton = UIButton(type: .custom)
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
 
     init(withLabel: String) {
@@ -75,7 +75,6 @@ class StepViewController: UIViewController, Flowtable {
                                   y: buttonMargin,
                                   width: buttonWidth,
                                   height: buttonHeight)
-
     }
 
     @objc

@@ -9,7 +9,7 @@ import KIF
 import XCTest
 @testable import FlowterDemo
 
-class FlowterDemoTests: KIFTestCase {
+class FlowterDemoTests: KIFTestCase {    
     func startFlow() -> UIView {
         tester().tapView(withAccessibilityLabel: "startFlowButton")
         

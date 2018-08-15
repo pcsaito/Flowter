@@ -10,9 +10,12 @@ import UIKit
 import Flowter
 
 class HomeViewController: UIViewController {
+    
     @objc
     func startFlow() {
-        Flowter(with: UINavigationController())
+        let flowContainer = UINavigationController()
+
+        Flowter(with: flowContainer)
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
                 
