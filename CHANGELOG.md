@@ -1,3 +1,8 @@
+v0.2.4
+-------
+
+* Fix the default behavior of the default present and dismiss code of flows with UIViewController Container Type
+
 v0.2.3
 -------
 

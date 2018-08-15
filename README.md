@@ -55,11 +55,45 @@ private func nextStep() {
 	flow?.next()
 }
 ```
+### Piece by piece
+Let's start with the ```Flowter```, it is just a temporary representation of the flow that you are building. You initialize it with a container, that shoud be an instance of UIViewController or UINavigationController, after that just add steps to it:
+```swift
+let flowContainer = UINavigationController()
+let flowter = Flowter(with: flowContainer)
+
+flowter.addStep(with: { (stepFactory) -> FlowStep<FlowtableViewController, UINavigationController> in
+	return stepFactory.make(with: FlowtableViewController()) 
+})
+```
+Your FlowtableViewController step will be added to the flow, it need to conform to the Flowtable protocol.
+
+The view controller will be only instanciaded just before the presentation, and there are default presentation routines depending of the container type. So you will get a push and pop on your navigation based flow, and basic presentation on your UIViewController flow.
+You can customize the presentation for the entirely flow or for each step, see the ahead....
+
+After you end adding steps, you need to end you flow with its dismiss code and just after that you can finally start your flow
+```swift
+let finishedFlowter = flowter.addEndFlowStep { (container) in
+	container.dismiss(animated: true)
+}
+
+finishedFlowter.startFlow { (container) in
+	someViewController.present(container, animated: true)
+}
+```
+
+Of couse this can be writen in a more compact way
+```swift
+Flowter(with: UINavigationController())
+	.addStep { $0.make(with: FlowtableViewController()) }
+	.addEndFlowStep { $0.dismiss(animated: true) }
+	.startFlow { someViewController.present($0, animated: true) }
+```
+Enjoy the short versions thanks to the trailing closure and shorthand argument name sugars.
+Use the most convinient syntax when it is needed...
 
 ### Dependency injection
 You can fully customize the factory clousure of each of your step UIViewController subclass, at this moment you can feed it with it's needings.
 
-Enjoy the short versions thanks to the trailing closure and shorthand argument name sugars.
 ```swift
 let newUser = User()
 
@@ -90,8 +124,23 @@ Flowter(with: UINavigationController())
 You can do every thing you could do inside your viewControllers, in an easy to visualize and flexible syntax.
 
 ### Custom presentation and dismiss code
+#### Defaults
+Flow wide custom presentation or dissmiss code can be provided at the creation of the flow, when no custom routine is defined on the step these implementations will take place
+```swift
+let flowContainer = CustomNavigationController()
+
+Flowter(with: flowContainer, 
+		defaultPresentAction: { (vc, container) in
+        	container.customPushViewController(vc)
+		},
+		defaultDismissAction: { (vc, container) in
+			container.customPopViewController()
+		})					
+```
+Expect the exact type of container that you used on the flow creation, type cast is not needed thanks to generics (:
+
 #### Presentation:
-You have control of the presentation code of your controllers too! 
+To control the presentation of just one of your controllers 
 ```swift
 	.addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
 		let step = stepFactory.make(with: StepViewController(withLabel: "Flow Start"))
