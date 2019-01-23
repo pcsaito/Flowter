@@ -357,4 +357,33 @@ class FlowterTests: XCTestCase {
 
         wait(for: [showExpectation, hideExpectation, closeFlowExpectation], timeout: testTimeout)
     }
+    
+    func testDoubleNextCalling() {
+        let flowContainer = UINavigationController()
+        
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+        let postDismissExpectation = XCTestExpectation(description: "end expectation")
+        
+        Flowter(with: flowContainer)
+            .addStep { $0.make { testingVC1 }}
+            .addStep { $0.make { testingVC2 }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        postDismissExpectation.fulfill()
+                    })
+                })
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        testingVC1.flow?.next()
+        testingVC1.flow?.next()
+        testingVC2.flow?.next()
+        
+        wait(for: [postDismissExpectation], timeout: testTimeout)
+    }
 }

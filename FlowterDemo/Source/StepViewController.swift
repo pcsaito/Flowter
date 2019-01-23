@@ -13,21 +13,17 @@ import Flowter
 class StepViewController: UIViewController, Flowtable {
     var flow: FlowStepInfo?
 
-    let labelString: String
-
+    var labelString = ""
+    
     let label = UILabel(frame: .zero)
     let backButton = UIButton(type: .custom)
     let nextButton = UIButton(type: .custom)
     let closeButton = UIButton(type: .custom)
 
-    required init?(coder aDecoder: NSCoder) {
-        return nil
-    }
-
-    init(withLabel: String) {
-        labelString = withLabel
-        super.init(nibName: nil, bundle: nil)
+    convenience init(withLabel: String) {
+        self.init(nibName: nil, bundle: nil)
         self.accessibilityLabel = withLabel
+        labelString = withLabel
     }
 
     override func viewDidLoad() {

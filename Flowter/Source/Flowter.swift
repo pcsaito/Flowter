@@ -84,9 +84,10 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
 
     //private methods
     private func clearNavigation() {
+        guard let navigationContainer = self.flowContainer as? UINavigationController else { return }
+
         //fixme
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let navigationContainer = self?.flowContainer as? UINavigationController else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             navigationContainer.viewControllers = [UIViewController]()
         }
     }
@@ -108,7 +109,8 @@ extension Flowter {
     public static func defaultPresent() -> DefaultStepActionType {
         return { (vc, container) in
             if let navContainer = container as? UINavigationController {
-                navContainer.pushViewController(vc, animated: true)
+                let newViewControllers = navContainer.viewControllers + [vc]
+                navContainer.setViewControllers(newViewControllers, animated: true)
             } else {
                 container.addChildViewController(vc)
                 container.view.addSubview(vc.view)
