@@ -318,13 +318,13 @@ class FlowterTests: XCTestCase {
                 let step = stepFactory.make(with: testingVC2)
                 
                 step.setPresentAction({ (vc, container) in
-                    container.addChildViewController(vc)
+                    container.addChild(vc)
                     container.view.addSubview(vc.view)
                     showExpectation.fulfill()
                 })
                 
                 step.setDismissAction({ (vc, container) in
-                    vc.removeFromParentViewController()
+                    vc.removeFromParent()
                     vc.view.removeFromSuperview()
                     hideExpectation.fulfill()
                 })
