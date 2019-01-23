@@ -6,8 +6,8 @@ branches:
 
 xcode_project: Flowter.xcodeproj
 xcode_scheme: Flowter
-osx_image: xcode9.2
-xcode_sdk: iphonesimulator11.2
+osx_image: xcode10.1
+xcode_sdk: iphonesimulator12.1
 
 before_install:
   - gem install cocoapods
