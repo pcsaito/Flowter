@@ -5,11 +5,13 @@
 //  Created by Paulo Cesar Saito on 17/05/18.
 //  Copyright 2018 Zazcar. All rights reserved.
 //
-import Foundation
+import UIKit
 
 public struct MakeStep<ControllerType: Flowtable, ContainerType: UIViewController> {
+    let container: ContainerType
+    
     public func make(withFactoryClosure: @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
-        return FlowStep<ControllerType,ContainerType>(with: withFactoryClosure)
+        return FlowStep<ControllerType,ContainerType>(with: withFactoryClosure, on: container)
     }
 
     public func make(with controller: @autoclosure @escaping () -> ControllerType) -> FlowStep<ControllerType,ContainerType> {
@@ -27,16 +29,17 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
     internal var dismissAction: StepActionType?
     internal var endFlowAction: ( () -> Void)?
 
-    internal var isLastStep: Bool = false
-    internal var nextStep: FlowStepType?
-    internal var container: ContainerType?
+    internal var nextStep: BaseFlowStepType?
+    internal let isLastStep: Bool = false
+    internal let container: ContainerType
 
     lazy var viewController: ControllerType = { [unowned self] in
         self.viewControllerFactory()
     }()
 
-    public init(with factory: @escaping ViewControllerFactoryType) {
+    public init(with factory: @escaping ViewControllerFactoryType, on container: ContainerType) {
         self.viewControllerFactory = factory
+        self.container = container
     }
 
     public func setPresentAction(_ action: @escaping StepActionType) {
@@ -53,20 +56,16 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
 
     //private methods
     internal func present(_ updating: Bool = false) {
-        guard let containerController = container else { fatalError("Flow Step does not have a container") }
-
         viewController.flow = FlowStepInfo(flowStep: self)
         if updating {
             viewController.updateFlowStepViewController()
         }
 
-        presentAction?(viewController, containerController)
+        presentAction?(viewController, container)
     }
 
     internal func dismiss() {
-        guard let containerController = container else { fatalError("Flow Step does not have a container") }
-
-        dismissAction?(viewController, containerController)
+        dismissAction?(viewController, container)
     }
 
     internal func destroy() {
@@ -74,7 +73,6 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
         dismissAction = nil
         endFlowAction = nil
 
-        container = nil
         nextStep = nil
 
         if !isLastStep {

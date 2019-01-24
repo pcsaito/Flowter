@@ -5,7 +5,7 @@
 //  Created by Paulo Cesar Saito on 17/05/18.
 //  Copyright 2018 Zazcar. All rights reserved.
 //
-import Foundation
+import UIKit
 
 public class Flowter<ContainerType> where ContainerType: UIViewController {
 
@@ -13,7 +13,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     public typealias DefaultStepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
     public typealias EndFlowStepActionType = (_ container: ContainerType) -> Void
 
-    internal var steps = [FlowStepType]()
+    internal var steps = [BaseFlowStepType]()
 
     private let presentAction:  DefaultStepActionType
     private let dismissAction:  DefaultStepActionType
@@ -31,8 +31,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
 
     @discardableResult
     public func addStep<ControllerType>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
-        let step = with(MakeStep<ControllerType,ContainerType>())
-        step.container = flowContainer
+        let step = with(MakeStep<ControllerType,ContainerType>(container: flowContainer))
 
         var lastStep = steps.last
         lastStep?.nextStep = step
@@ -50,9 +49,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     }
 
     public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
-        let endStep = MakeEndStep<ContainerType>().makeEndFlow()
-        endStep.container = flowContainer
-        endStep.isLastStep = true
+        let endStep = MakeEndStep<ContainerType>().makeEndFlow(with: flowContainer)
         
         var lastStep = steps.last
         lastStep?.nextStep = endStep
@@ -109,6 +106,7 @@ extension Flowter {
     public static func defaultPresent() -> DefaultStepActionType {
         return { (vc, container) in
             if let navContainer = container as? UINavigationController {
+                guard navContainer.viewControllers.contains(vc) == false else { return }
                 let newViewControllers = navContainer.viewControllers + [vc]
                 navContainer.setViewControllers(newViewControllers, animated: true)
             } else {

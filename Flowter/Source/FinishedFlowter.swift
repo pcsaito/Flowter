@@ -5,7 +5,7 @@
 //  Created by Paulo Cesar Saito on 18/05/18.
 //  Copyright 2018 Zazcar. All rights reserved.
 //
-import Foundation
+import UIKit
 
 public struct FinishedFlowter<ContainerType> where ContainerType: UIViewController {
     internal let flowter: Flowter<ContainerType>
