@@ -5,7 +5,7 @@
 //  Created by Paulo Cesar Saito on 13/08/18.
 //  Copyright 2018 Zazcar. All rights reserved.
 //
-import Foundation
+import UIKit
 
 public struct MakeEndStep<ContainerType: UIViewController> {
     public func makeEndFlow(with container: ContainerType) -> EndFlowStep<ContainerType> {
