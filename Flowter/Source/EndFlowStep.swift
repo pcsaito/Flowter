@@ -20,7 +20,7 @@ public class EndFlowStep<ContainerType>: BaseFlowStepType {
     internal let isLastStep: Bool = true
     internal let container: ContainerType
     
-    init(with container: ContainerType) {
+    internal init(with container: ContainerType) {
         self.container = container
     }
         
