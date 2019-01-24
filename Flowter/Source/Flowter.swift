@@ -109,6 +109,7 @@ extension Flowter {
     public static func defaultPresent() -> DefaultStepActionType {
         return { (vc, container) in
             if let navContainer = container as? UINavigationController {
+                guard navContainer.viewControllers.contains(vc) == false else { return }
                 let newViewControllers = navContainer.viewControllers + [vc]
                 navContainer.setViewControllers(newViewControllers, animated: true)
             } else {
