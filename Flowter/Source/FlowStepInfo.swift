@@ -8,7 +8,7 @@
 import Foundation
 
 public struct FlowStepInfo {
-    internal var flowStep: FlowStepType
+    internal var flowStep: BaseFlowStepType
 
     public func next(updating: Bool = false) {
         guard let nextStep = flowStep.nextStep, !nextStep.isLastStep else {
@@ -20,7 +20,7 @@ public struct FlowStepInfo {
     }
 
     public func back() {
-        flowStep.dismiss()
+        (flowStep as? FlowStepType)?.dismiss()
     }
 
     public func endFlow() {

@@ -8,26 +8,28 @@
 import Foundation
 
 public struct MakeEndStep<ContainerType: UIViewController> {
-    public func makeEndFlow() -> EndFlowStep<ContainerType> {
-        return EndFlowStep<ContainerType>()
+    public func makeEndFlow(with container: ContainerType) -> EndFlowStep<ContainerType> {
+        return EndFlowStep<ContainerType>(with: container)
     }
 }
 
-public class EndFlowStep<ContainerType>: FlowStepType {
+public class EndFlowStep<ContainerType>: BaseFlowStepType {
     internal var endFlowAction: ( () -> Void)?
     
-    internal var isLastStep: Bool = false
-    internal var nextStep: FlowStepType?
-    internal var container: ContainerType?
+    internal var nextStep: BaseFlowStepType?
+    internal let isLastStep: Bool = true
+    internal let container: ContainerType
+    
+    init(with container: ContainerType) {
+        self.container = container
+    }
         
     //private methods
     internal func present(_ updating: Bool = false) {}
-    internal func dismiss() {}
     
     internal func destroy() {
         endFlowAction = nil
         
-        container = nil
         nextStep = nil
     }
     
