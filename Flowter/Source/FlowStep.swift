@@ -30,7 +30,6 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
     internal var endFlowAction: ( () -> Void)?
 
     internal var nextStep: BaseFlowStepType?
-    internal let isLastStep: Bool = false
     internal let container: ContainerType
 
     lazy var viewController: ControllerType = { [unowned self] in
@@ -74,15 +73,12 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
         endFlowAction = nil
 
         nextStep = nil
-
-        if !isLastStep {
-            viewController.flow = nil
-        }
+        viewController.flow = nil
     }
 
     #if DEBUG
     deinit {
-        print("Bye FlowStep: \(!isLastStep ? self.viewController.description : "EndStep")")
+        print("Bye FlowStep: \(self.viewController.description)")
     }
     #endif
 }

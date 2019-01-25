@@ -30,6 +30,7 @@
 		3A98C53620B35DE800F76A06 /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A98C53520B35DE800F76A06 /* StepViewController.swift */; };
 		3A98C53920B35E1700F76A06 /* Flowter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; };
 		3A98C53B20B35E4700F76A06 /* Flowter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AC96FF321FB8AA0007FE7DF /* FilledFlowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC96FF221FB8AA0007FE7DF /* FilledFlowter.swift */; };
 		3AEB906920AF7C9C004D404B /* FlowStepInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */; };
 		3AEB906B20AF7CFC004D404B /* FinishedFlowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */; };
 		B21BACDDCB4C25CF757CCB14 /* Pods_FlowterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719B7A1B19EC7F20D8BD6506 /* Pods_FlowterTests.framework */; };
@@ -101,6 +102,7 @@
 		3A98C52E20B35DBA00F76A06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A98C53020B35DBA00F76A06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A98C53520B35DE800F76A06 /* StepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
+		3AC96FF221FB8AA0007FE7DF /* FilledFlowter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledFlowter.swift; sourceTree = "<group>"; };
 		3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepInfo.swift; sourceTree = "<group>"; };
 		3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedFlowter.swift; sourceTree = "<group>"; };
 		3B776743E69BB09DB512E35C /* Pods-FlowterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlowterTests/Pods-FlowterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				3A28E22C20AE1B950028801C /* Flowter.swift */,
+				3AC96FF221FB8AA0007FE7DF /* FilledFlowter.swift */,
 				3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */,
 				3A28E23320AE1CBA0028801C /* Flowtable.swift */,
 				3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */,
@@ -432,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A28E22D20AE1B950028801C /* Flowter.swift in Sources */,
+				3AC96FF321FB8AA0007FE7DF /* FilledFlowter.swift in Sources */,
 				3A02D82C212231A400BC94CD /* FlowStepType.swift in Sources */,
 				3A02D82A2122316500BC94CD /* EndFlowStep.swift in Sources */,
 				3AEB906920AF7C9C004D404B /* FlowStepInfo.swift in Sources */,

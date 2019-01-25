@@ -11,12 +11,12 @@ public struct FlowStepInfo {
     internal var flowStep: BaseFlowStepType
 
     public func next(updating: Bool = false) {
-        guard let nextStep = flowStep.nextStep, !nextStep.isLastStep else {
+        guard let nextStep = flowStep.nextStep as? FlowStepType else {
             flowStep.nextStep?.endFlowAction?()
             return
         }
 
-        (nextStep as? FlowStepType)?.present(updating)
+        nextStep.present(updating)
     }
 
     public func back() {

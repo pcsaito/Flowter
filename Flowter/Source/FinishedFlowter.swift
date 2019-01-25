@@ -11,9 +11,9 @@ public struct FinishedFlowter<ContainerType> where ContainerType: UIViewControll
     internal let flowter: FilledFlowter<ContainerType>
 
     public func startFlow(flowPresentAction: @escaping ( (_ flowContainer: ContainerType) -> Void)) {
-        guard let step = flowter.steps.first else { return }
+        guard let step = flowter.steps.first as? FlowStepType else { return }
 
-        (step as? FlowStepType)?.present(false)
+        step.present(false)
 
         let presentFlow = { [weak flowContainer = flowter.flowContainer] in
             guard let container = flowContainer else { return }

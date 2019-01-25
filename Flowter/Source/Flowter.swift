@@ -69,47 +69,6 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     #endif
 }
 
-public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerType> {
-    init(_ baseFlowter: Flowter<ContainerType>) {
-        super.init(with: baseFlowter.flowContainer,
-                   defaultPresentAction: baseFlowter.presentAction,
-                   defaultDismissAction: baseFlowter.dismissAction)
-        
-        self.steps = baseFlowter.steps
-    }
-
-    public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
-        let endStep = MakeEndStep<ContainerType>().makeEndFlow(with: flowContainer)
-        
-        var lastStep = steps.last
-        lastStep?.nextStep = endStep
-        steps.append(endStep)
-        
-        endStep.endFlowAction = { [weak self] in
-            guard let container = self?.flowContainer else { return }
-            action(container)
-        }
-        
-        if let endFlowAction = endStep.endFlowAction {
-            steps.forEach { (eachStep) in
-                var mutableStep = eachStep
-                var endAction = endFlowAction
-                if let definedEndStep = mutableStep.endFlowAction {
-                    endAction = definedEndStep
-                }
-                
-                mutableStep.endFlowAction = {
-                    endAction()
-                    self.clearSteps()
-                    self.clearNavigation()
-                }
-            }
-        }
-        
-        return FinishedFlowter(flowter: self)
-    }
-}
-
 //for convenience initializers usage
 extension Flowter {
     public static func defaultPresent() -> DefaultStepActionType {

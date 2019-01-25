@@ -17,7 +17,6 @@ public class EndFlowStep<ContainerType>: BaseFlowStepType {
     internal var endFlowAction: ( () -> Void)?
     
     internal var nextStep: BaseFlowStepType?
-    internal let isLastStep: Bool = true
     internal let container: ContainerType
     
     internal init(with container: ContainerType) {
