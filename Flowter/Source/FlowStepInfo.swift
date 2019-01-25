@@ -16,7 +16,7 @@ public struct FlowStepInfo {
             return
         }
 
-        nextStep.present(updating)
+        (nextStep as? FlowStepType)?.present(updating)
     }
 
     public func back() {

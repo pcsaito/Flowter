@@ -23,13 +23,9 @@ public class EndFlowStep<ContainerType>: BaseFlowStepType {
     internal init(with container: ContainerType) {
         self.container = container
     }
-        
-    //private methods
-    internal func present(_ updating: Bool = false) {}
     
     internal func destroy() {
         endFlowAction = nil
-        
         nextStep = nil
     }
     

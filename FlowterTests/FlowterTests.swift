@@ -283,24 +283,7 @@ class FlowterTests: XCTestCase {
 
         wait(for: [testingVC2.updateExpectation], timeout: testTimeout)
     }
-    
-    func testEmptyFlow() {
-        let flowContainer = UINavigationController()
-        let expectation = XCTestExpectation(description: "dont crash")
         
-        Flowter(with: flowContainer)
-            .addEndFlowStep { (container) in
-                container.dismiss(animated: false, completion: nil)
-            }
-            .startFlow { (container) in
-                let rootVC = self.window.rootViewController
-                rootVC!.present(container, animated: false)
-                expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: testTimeout)
-    }
-    
     func testUIViewControllerContainerFlow() {
         let flowContainer = UIViewController()
         

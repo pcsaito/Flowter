@@ -8,16 +8,15 @@
 import UIKit
 
 public class Flowter<ContainerType> where ContainerType: UIViewController {
-
     public typealias StepFactoryType<T: Flowtable> = (_ stepFactory: MakeStep<T,ContainerType>) -> FlowStep<T,ContainerType>
     public typealias DefaultStepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
     public typealias EndFlowStepActionType = (_ container: ContainerType) -> Void
-
+    
     internal var steps = [BaseFlowStepType]()
-
-    private let presentAction:  DefaultStepActionType
-    private let dismissAction:  DefaultStepActionType
-
+    
+    internal let presentAction: DefaultStepActionType
+    internal let dismissAction: DefaultStepActionType
+    
     public let flowContainer: ContainerType
 
     public init(with container: ContainerType,
@@ -28,24 +27,55 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         presentAction = defaultPresentAction
         dismissAction = defaultDismissAction
     }
-
+    
     @discardableResult
-    public func addStep<ControllerType>(with: StepFactoryType<ControllerType>) -> Flowter<ContainerType> {
+    public func addStep<ControllerType>(with: StepFactoryType<ControllerType>) -> FilledFlowter<ContainerType> {
         let step = with(MakeStep<ControllerType,ContainerType>(container: flowContainer))
-
+        
         var lastStep = steps.last
         lastStep?.nextStep = step
         steps.append(step)
-
+        
         if step.endFlowAction == nil && step.presentAction == nil {
             step.presentAction = presentAction
         }
-
+        
         if steps.count != 0 && step.dismissAction == nil {
             step.dismissAction = dismissAction
         }
+        
+        return FilledFlowter(self)
+    }
+    
+    //private methods
+    internal func clearNavigation() {
+        guard let navigationContainer = self.flowContainer as? UINavigationController else { return }
+        
+        //fixme
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            navigationContainer.viewControllers = [UIViewController]()
+        }
+    }
+    
+    internal func clearSteps() {
+        steps.forEach { $0.destroy() }
+        steps.removeAll()
+    }
+    
+    #if DEBUG
+    deinit {
+        print("Bye Flowter: \(self)")
+    }
+    #endif
+}
 
-        return self
+public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerType> {
+    init(_ baseFlowter: Flowter<ContainerType>) {
+        super.init(with: baseFlowter.flowContainer,
+                   defaultPresentAction: baseFlowter.presentAction,
+                   defaultDismissAction: baseFlowter.dismissAction)
+        
+        self.steps = baseFlowter.steps
     }
 
     public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
@@ -75,30 +105,9 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
                 }
             }
         }
-
+        
         return FinishedFlowter(flowter: self)
     }
-
-    //private methods
-    private func clearNavigation() {
-        guard let navigationContainer = self.flowContainer as? UINavigationController else { return }
-
-        //fixme
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            navigationContainer.viewControllers = [UIViewController]()
-        }
-    }
-
-    private func clearSteps() {
-        steps.forEach { $0.destroy() }
-        steps.removeAll()
-    }
-
-    #if DEBUG
-    deinit {
-        print("Bye Flowter: \(self)")
-    }
-    #endif
 }
 
 //for convenience initializers usage
