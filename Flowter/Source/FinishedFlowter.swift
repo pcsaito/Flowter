@@ -14,11 +14,6 @@ public struct FinishedFlowter<ContainerType> where ContainerType: UIViewControll
         guard let step = flowter.steps.first as? FlowStepType else { return }
 
         step.present(false)
-
-        let presentFlow = { [weak flowContainer = flowter.flowContainer] in
-            guard let container = flowContainer else { return }
-            flowPresentAction(container)
-        }
-        presentFlow()
+        flowPresentAction(flowter.flowContainer)
     }
 }

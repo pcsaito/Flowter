@@ -47,6 +47,13 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         return FilledFlowter(self)
     }
     
+    public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType>? {
+        guard steps.count > 0 else {
+            return nil
+        }
+        return FilledFlowter(self).addEndFlowStep(action)
+    }
+    
     //private methods
     internal func clearNavigation() {
         guard let navigationContainer = self.flowContainer as? UINavigationController else { return }

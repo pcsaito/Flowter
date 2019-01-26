@@ -16,7 +16,7 @@ public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerTy
         self.steps = baseFlowter.steps
     }
     
-    public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
+    public override func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
         let endStep = MakeEndStep<ContainerType>().makeEndFlow(with: flowContainer)
         
         var lastStep = steps.last
