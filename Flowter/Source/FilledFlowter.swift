@@ -8,12 +8,12 @@
 import UIKit
 
 public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerType> {
-    internal init(_ baseFlowter: Flowter<ContainerType>) {
-        super.init(with: baseFlowter.flowContainer,
-                   defaultPresentAction: baseFlowter.presentAction,
-                   defaultDismissAction: baseFlowter.dismissAction)
+    internal init(basedOn flowter: Flowter<ContainerType>) {
+        super.init(with: flowter.flowContainer,
+                   defaultPresentAction: flowter.presentAction,
+                   defaultDismissAction: flowter.dismissAction)
         
-        self.steps = baseFlowter.steps
+        self.steps = flowter.steps
     }
     
     public override func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {

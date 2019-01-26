@@ -44,14 +44,14 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
             step.dismissAction = dismissAction
         }
         
-        return FilledFlowter(self)
+        return FilledFlowter(basedOn: self)
     }
     
     public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType>? {
         guard steps.count > 0 else {
             return nil
         }
-        return FilledFlowter(self).addEndFlowStep(action)
+        return FilledFlowter(basedOn: self).addEndFlowStep(action)
     }
     
     //private methods
