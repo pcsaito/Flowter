@@ -28,11 +28,11 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     }
 
     public convenience init(with container: ContainerType,
-                defaultPresentAction: @escaping DefaultStepActionType = Flowter<ContainerType>.defaultPresent(),
-                defaultDismissAction: @escaping DefaultStepActionType = Flowter<ContainerType>.defaultDismiss())
+                defaultPresentAction: DefaultStepActionType? = nil,
+                defaultDismissAction: DefaultStepActionType? = nil)
     {
-        self.init(with: container, defaultPresentAction: defaultPresentAction,
-                  defaultDismissAction: defaultDismissAction, flowSteps: [])
+        self.init(with: container, defaultPresentAction: defaultPresentAction ?? Flowter<ContainerType>.defaultPresent(),
+                  defaultDismissAction: defaultDismissAction ?? Flowter<ContainerType>.defaultDismiss(), flowSteps: [])
     }
     
     @discardableResult
@@ -61,7 +61,20 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         return FilledFlowter(basedOn: self).addEndFlowStep(action)
     }
     
+    #if DEBUG
+    deinit {
+        print("Bye Flowter: \(self)")
+    }
+    #endif
+}
+
+extension Flowter  {
     //private methods
+    internal func clearSteps() {
+        steps.forEach { $0.destroy() }
+        steps.removeAll()
+    }
+
     internal func clearNavigation() {
         guard let navigationContainer = self.flowContainer as? UINavigationController else { return }
         
@@ -71,21 +84,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         }
     }
     
-    internal func clearSteps() {
-        steps.forEach { $0.destroy() }
-        steps.removeAll()
-    }
-    
-    #if DEBUG
-    deinit {
-        print("Bye Flowter: \(self)")
-    }
-    #endif
-}
-
-//for convenience initializers usage
-extension Flowter {
-    public static func defaultPresent() -> DefaultStepActionType {
+    internal static func defaultPresent() -> DefaultStepActionType {
         return { (vc, container) in
             if let navContainer = container as? UINavigationController {
                 guard navContainer.viewControllers.contains(vc) == false else { return }
@@ -94,17 +93,19 @@ extension Flowter {
             } else {
                 container.addChild(vc)
                 container.view.addSubview(vc.view)
+                vc.didMove(toParent: container)
             }
         }
     }
-
-    public static func defaultDismiss() -> DefaultStepActionType {
+    
+    internal static func defaultDismiss() -> DefaultStepActionType {
         return { (vc, container) in
             if let navContainer = container as? UINavigationController {
                 navContainer.popViewController(animated: true)
             } else {
                 vc.removeFromParent()
                 vc.view.removeFromSuperview()
+                vc.didMove(toParent: nil)
             }
         }
     }
