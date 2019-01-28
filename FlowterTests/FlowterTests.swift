@@ -23,11 +23,12 @@ class FlowterTests: XCTestCase {
     var window: UIWindow {
         let window = UIApplication.shared.keyWindow ?? UIWindow(frame: UIScreen.main.bounds)
         let root = UIViewController()
+
+        root.beginAppearanceTransition(true, animated: false) // Triggers viewWillAppear
         
         window.rootViewController = root
         window.makeKeyAndVisible()
         
-        root.beginAppearanceTransition(true, animated: false) // Triggers viewWillAppear
         root.endAppearanceTransition() // Triggers viewDidAppear
 
         return window
@@ -102,16 +103,18 @@ class FlowterTests: XCTestCase {
         
         let testingVC = FlowterTestViewController()
         
-        Flowter(with: flowContainer)
-            .addStep { $0.make { testingVC }}
-            .addEndFlowStep { (container) in
-                container.dismiss(animated: false, completion: {
-                    expectation.fulfill()
-                })
-            }
-            .startFlow { (container) in
-                let rootVC = self.window.rootViewController
-                rootVC!.present(container, animated: false)
+        let flowter = Flowter(with: flowContainer)
+        flowter.addStep { $0.make { testingVC }}
+        
+        let filledFlowter = flowter.addEndFlowStep { (container) in
+            container.dismiss(animated: false, completion: {
+                expectation.fulfill()
+            })
+        }
+            
+        filledFlowter?.startFlow { (container) in
+            let rootVC = self.window.rootViewController
+            rootVC!.present(container, animated: false)
         }
         
         DispatchQueue.main.async {
@@ -286,21 +289,15 @@ class FlowterTests: XCTestCase {
     
     func testEmptyFlow() {
         let flowContainer = UINavigationController()
-        let expectation = XCTestExpectation(description: "dont crash")
         
-        Flowter(with: flowContainer)
-            .addEndFlowStep { (container) in
+        let flowter = Flowter(with: flowContainer)
+            .addEndFlowStep({ (container) in
                 container.dismiss(animated: false, completion: nil)
-            }
-            .startFlow { (container) in
-                let rootVC = self.window.rootViewController
-                rootVC!.present(container, animated: false)
-                expectation.fulfill()
-        }
+            })
         
-        wait(for: [expectation], timeout: testTimeout)
+        XCTAssertNil(flowter, "ending an empty flowter should return nil")
     }
-    
+        
     func testUIViewControllerContainerFlow() {
         let flowContainer = UIViewController()
         
@@ -403,7 +400,7 @@ class FlowterTests: XCTestCase {
             .addStep { $0.make { testingVC2 }}
             .addEndFlowStep { (container) in
                 container.dismiss(animated: false, completion: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                         postDismissExpectation.fulfill()
                     })
                 })

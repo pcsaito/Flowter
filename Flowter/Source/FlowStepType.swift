@@ -8,15 +8,13 @@
 import Foundation
 
 internal protocol BaseFlowStepType {
-    var isLastStep: Bool { get }
     var nextStep: BaseFlowStepType? { get set }
     var endFlowAction: ( () -> Void)? { get set }
-    
-    func present(_ updating: Bool)
 
     func destroy()
 }
 
 internal protocol FlowStepType: BaseFlowStepType {
+    func present(_ updating: Bool)
     func dismiss()
 }

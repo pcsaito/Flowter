@@ -76,7 +76,7 @@ let finishedFlowter = flowter.addEndFlowStep { (container) in
 	container.dismiss(animated: true)
 }
 
-finishedFlowter.startFlow { (container) in
+finishedFlowter?.startFlow { (container) in
 	someViewController.present(container, animated: true)
 }
 ```
@@ -215,14 +215,14 @@ You can and should use the same controllers that is already used elsewhere in yo
 Just guard or check the existence of the `flow`, or call it using the optional chaining like `flow?.next()`.
 ```swift
 private func close() {
-	guard let flow = self?.flow else { 
-	//on stand alone usage just pop the view controller
-		self.navigationController?.popViewController(animated: true)
+	if let flow = self?.flow { 
+		//inside a Flowter, proceed the flow
+		flow.next() 
 		return
 	}
 	
-	//inside a Flowter, proceed the flow
-	flow.next() 
+	//on stand alone usage just pop the view controller
+	self.navigationController?.popViewController(animated: true)
 }
 ```
 

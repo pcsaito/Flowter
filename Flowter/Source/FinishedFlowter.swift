@@ -8,17 +8,12 @@
 import UIKit
 
 public struct FinishedFlowter<ContainerType> where ContainerType: UIViewController {
-    internal let flowter: Flowter<ContainerType>
+    internal let basedOn: FilledFlowter<ContainerType>
 
     public func startFlow(flowPresentAction: @escaping ( (_ flowContainer: ContainerType) -> Void)) {
-        guard let step = flowter.steps.first else { return }
+        guard let step = basedOn.steps.first as? FlowStepType else { return }
 
         step.present(false)
-
-        let presentFlow = { [weak flowContainer = flowter.flowContainer] in
-            guard let container = flowContainer else { return }
-            flowPresentAction(container)
-        }
-        presentFlow()
+        flowPresentAction(basedOn.flowContainer)
     }
 }

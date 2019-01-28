@@ -17,19 +17,14 @@ public class EndFlowStep<ContainerType>: BaseFlowStepType {
     internal var endFlowAction: ( () -> Void)?
     
     internal var nextStep: BaseFlowStepType?
-    internal let isLastStep: Bool = true
     internal let container: ContainerType
     
     internal init(with container: ContainerType) {
         self.container = container
     }
-        
-    //private methods
-    internal func present(_ updating: Bool = false) {}
     
     internal func destroy() {
         endFlowAction = nil
-        
         nextStep = nil
     }
     
