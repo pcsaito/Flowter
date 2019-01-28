@@ -12,20 +12,27 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     public typealias DefaultStepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
     public typealias EndFlowStepActionType = (_ container: ContainerType) -> Void
     
-    internal var steps = [BaseFlowStepType]()
-    
+    public let flowContainer: ContainerType
+
+    internal var steps: [BaseFlowStepType]
     internal let presentAction: DefaultStepActionType
     internal let dismissAction: DefaultStepActionType
     
-    public let flowContainer: ContainerType
-
-    public init(with container: ContainerType,
-                defaultPresentAction: @escaping  DefaultStepActionType = Flowter<ContainerType>.defaultPresent(),
-                defaultDismissAction: @escaping  DefaultStepActionType = Flowter<ContainerType>.defaultDismiss())
+    internal init(with container: ContainerType, defaultPresentAction: @escaping DefaultStepActionType,
+                defaultDismissAction: @escaping DefaultStepActionType, flowSteps: [BaseFlowStepType])
     {
+        steps = flowSteps
         flowContainer = container
         presentAction = defaultPresentAction
         dismissAction = defaultDismissAction
+    }
+
+    public convenience init(with container: ContainerType,
+                defaultPresentAction: @escaping DefaultStepActionType = Flowter<ContainerType>.defaultPresent(),
+                defaultDismissAction: @escaping DefaultStepActionType = Flowter<ContainerType>.defaultDismiss())
+    {
+        self.init(with: container, defaultPresentAction: defaultPresentAction,
+                  defaultDismissAction: defaultDismissAction, flowSteps: [])
     }
     
     @discardableResult

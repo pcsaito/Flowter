@@ -9,11 +9,8 @@ import UIKit
 
 public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerType> {
     internal init(basedOn flowter: Flowter<ContainerType>) {
-        super.init(with: flowter.flowContainer,
-                   defaultPresentAction: flowter.presentAction,
-                   defaultDismissAction: flowter.dismissAction)
-        
-        self.steps = flowter.steps
+        super.init(with: flowter.flowContainer, defaultPresentAction: flowter.presentAction,
+                   defaultDismissAction: flowter.dismissAction, flowSteps: flowter.steps)
     }
     
     public override func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType> {
@@ -44,6 +41,6 @@ public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerTy
             }
         }
         
-        return FinishedFlowter(flowter: self)
+        return FinishedFlowter(basedOn: self)
     }
 }
