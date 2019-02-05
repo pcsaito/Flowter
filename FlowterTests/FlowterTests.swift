@@ -10,6 +10,7 @@ import XCTest
 
 class FlowterTestViewController: UIViewController, Flowtable {
     var flow: FlowStepInfo?
+    var context: Any?
     
     var updateExpectation = XCTestExpectation(description: "update vc")
     func updateFlowStepViewController() {
@@ -285,6 +286,33 @@ class FlowterTests: XCTestCase {
         testingVC1.flow?.next(updating: true)
 
         wait(for: [testingVC2.updateExpectation], timeout: testTimeout)
+    }
+    
+    private struct TestContext: Equatable {
+        let name: String, age: Int
+    }
+    
+    func testPassingDataToNextStep() {
+        let flowContainer = UINavigationController()
+        
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+        
+        Flowter(with: flowContainer)
+            .addStep { $0.make { testingVC1 }}
+            .addStep { $0.make { testingVC2 }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: nil)
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+            }
+        
+        let testingVC1Context = TestContext(name: "Fernando", age: 30)
+        testingVC1.flow?.next(context: testingVC1Context)
+        
+        XCTAssertEqual(testingVC1Context, testingVC2.context as? TestContext)
     }
     
     func testEmptyFlow() {

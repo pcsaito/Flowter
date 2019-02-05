@@ -12,18 +12,22 @@ import Flowter
 
 class StepViewController: UIViewController, Flowtable {
     var flow: FlowStepInfo?
+    var context: Any?
 
     var labelString = ""
+    var currentContext: Any?
     
     let label = UILabel(frame: .zero)
+    let contextLabel = UILabel(frame: .zero)
     let backButton = UIButton(type: .custom)
     let nextButton = UIButton(type: .custom)
     let closeButton = UIButton(type: .custom)
 
-    convenience init(withLabel: String) {
+    convenience init(withLabel: String, context: Any? = nil) {
         self.init(nibName: nil, bundle: nil)
         self.accessibilityLabel = withLabel
         labelString = withLabel
+        currentContext = context
     }
 
     override func viewDidLoad() {
@@ -35,6 +39,7 @@ class StepViewController: UIViewController, Flowtable {
 
         view.backgroundColor = .white
         view.addSubview(label)
+        view.addSubview(contextLabel)
         view.addSubview(backButton)
         view.addSubview(nextButton)
         view.addSubview(closeButton)
@@ -44,6 +49,12 @@ class StepViewController: UIViewController, Flowtable {
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.frame = CGRect(x: 0, y: 0, width: 300, height: 100)
         label.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        
+        contextLabel.text = "context: \((context as? String) ?? "")"
+        contextLabel.textAlignment = .center
+        contextLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        contextLabel.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
+        contextLabel.center = CGPoint(x: view.bounds.width / 2, y: (label.frame.origin.y + label.frame.size.height) + 10)
 
         backButton.accessibilityLabel = "backButton"
         backButton.setTitle("back", for: .normal)
@@ -80,7 +91,7 @@ class StepViewController: UIViewController, Flowtable {
 
     @objc
     private func nextStep() {
-        flow?.next(updating: true)
+        flow?.next(updating: true, context: currentContext)
     }
 
     @objc

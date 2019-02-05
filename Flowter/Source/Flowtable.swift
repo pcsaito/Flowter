@@ -10,6 +10,7 @@ import UIKit
 //should call flowStep.next() or optionally flowStep.back() to continue the flow
 public protocol Flowtable where Self: UIViewController {
     var flow: FlowStepInfo? { get set }
+    var context: Any? { get set }
 
     func updateFlowStepViewController()
 }
