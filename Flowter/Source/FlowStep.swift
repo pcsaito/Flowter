@@ -54,8 +54,10 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
     }
 
     //private methods
-    internal func present(_ updating: Bool = false) {
+    internal func present(_ updating: Bool = false, context: Any? = nil) {
         viewController.flow = FlowStepInfo(flowStep: self)
+        viewController.context = context
+        
         if updating {
             viewController.updateFlowStepViewController()
         }
