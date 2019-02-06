@@ -123,6 +123,25 @@ Flowter(with: UINavigationController())
 ```
 You can do every thing you could do inside your viewControllers, in an easy to visualize and flexible syntax.
 
+### Passing a context object to the next step
+Optionally you can pass an arbitrary object to the next step calling `flow?.next(context: Any?)`
+```swift
+	let info: String = "context string"
+
+	flow?.next(context: info)
+```
+
+The context will be delivered on `func updateFlowtableViewController(with context: Any?)` of the next step viewController.
+```swift
+func updateFlowtableViewController(with context: Any?) {
+	guard let contextString = context as? String else {
+		//do something or just return
+		return
+	}
+	doSomething(with: contextString)
+}
+```
+
 ### Custom presentation and dismiss code
 #### Defaults
 Flow wide custom presentation or dissmiss code can be provided at the creation of the flow, when no custom routine is defined on the step these implementations will take place
