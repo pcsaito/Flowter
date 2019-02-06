@@ -13,7 +13,7 @@ public struct FinishedFlowter<ContainerType> where ContainerType: UIViewControll
     public func startFlow(flowPresentAction: @escaping ( (_ flowContainer: ContainerType) -> Void)) {
         guard let step = basedOn.steps.first as? FlowStepType else { return }
 
-        step.present(false, context: nil)
+        step.present()
         flowPresentAction(basedOn.flowContainer)
     }
 }

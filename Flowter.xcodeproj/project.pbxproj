@@ -15,7 +15,6 @@
 		3A1AD29C2123BE4B00F4D3E6 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AD2982123BE4B00F4D3E6 /* Podfile */; };
 		3A1AD29D2123BE4B00F4D3E6 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AD2992123BE4B00F4D3E6 /* CHANGELOG.md */; };
 		3A28E21C20AE1B460028801C /* Flowter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; };
-		3A28E22120AE1B460028801C /* FlowterDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22020AE1B460028801C /* FlowterDemoTests.swift */; };
 		3A28E22320AE1B460028801C /* Flowter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A28E21520AE1B460028801C /* Flowter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A28E22D20AE1B950028801C /* Flowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22C20AE1B950028801C /* Flowter.swift */; };
 		3A28E22F20AE1BB50028801C /* FlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22E20AE1BB50028801C /* FlowStep.swift */; };
@@ -31,6 +30,7 @@
 		3A98C53920B35E1700F76A06 /* Flowter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; };
 		3A98C53B20B35E4700F76A06 /* Flowter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28E21220AE1B450028801C /* Flowter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AC96FF321FB8AA0007FE7DF /* FilledFlowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC96FF221FB8AA0007FE7DF /* FilledFlowter.swift */; };
+		3ACFEF0B220A2D6D0038ADB5 /* FlowterDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28E22020AE1B460028801C /* FlowterDemoTests.swift */; };
 		3AEB906920AF7C9C004D404B /* FlowStepInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906820AF7C9C004D404B /* FlowStepInfo.swift */; };
 		3AEB906B20AF7CFC004D404B /* FinishedFlowter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEB906A20AF7CFC004D404B /* FinishedFlowter.swift */; };
 		B21BACDDCB4C25CF757CCB14 /* Pods_FlowterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719B7A1B19EC7F20D8BD6506 /* Pods_FlowterTests.framework */; };
@@ -449,7 +449,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A28E22120AE1B460028801C /* FlowterDemoTests.swift in Sources */,
+				3ACFEF0B220A2D6D0038ADB5 /* FlowterDemoTests.swift in Sources */,
 				3A7DD79E20C7240E008A7DF6 /* XCTestCase+KIF.swift in Sources */,
 				3A02D82E212240D400BC94CD /* FlowterTests.swift in Sources */,
 			);

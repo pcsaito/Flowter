@@ -19,7 +19,7 @@ public struct MakeStep<ControllerType: Flowtable, ContainerType: UIViewControlle
     }
 }
 
-public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
+public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {    
     public typealias StepActionType = ( (_ vc: ControllerType, _ container: ContainerType) -> Void)
     public typealias ViewControllerFactoryType = () -> ControllerType
 
@@ -54,13 +54,9 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
     }
 
     //private methods
-    internal func present(_ updating: Bool = false, context: Any? = nil) {
+    internal func present(with context: Any?) {
         viewController.flow = FlowStepInfo(flowStep: self)
-        viewController.context = context
-        
-        if updating {
-            viewController.updateFlowStepViewController()
-        }
+        viewController.updateFlowtableViewController(with: context)
 
         presentAction?(viewController, container)
     }

@@ -8,12 +8,20 @@
 import XCTest
 @testable import Flowter
 
+struct TestContext: Equatable {
+    let name: String, age: Int
+}
+
 class FlowterTestViewController: UIViewController, Flowtable {
     var flow: FlowStepInfo?
-    var context: Any?
+}
+
+class FlowterTestUpdatingViewController: UIViewController, Flowtable {
+    var flow: FlowStepInfo?, context: Any?
     
     var updateExpectation = XCTestExpectation(description: "update vc")
-    func updateFlowStepViewController() {
+    func updateFlowtableViewController(with context: Any?) {
+        self.context = context
         updateExpectation.fulfill()
     }
 }
@@ -270,7 +278,7 @@ class FlowterTests: XCTestCase {
         let flowContainer = UINavigationController()
         
         let testingVC1 = FlowterTestViewController()
-        let testingVC2 = FlowterTestViewController()
+        let testingVC2 = FlowterTestUpdatingViewController()
 
         Flowter(with: flowContainer)
             .addStep { $0.make { testingVC1 }}
@@ -283,20 +291,16 @@ class FlowterTests: XCTestCase {
                 rootVC!.present(container, animated: false)
         }
         
-        testingVC1.flow?.next(updating: true)
+        testingVC1.flow?.next()
 
         wait(for: [testingVC2.updateExpectation], timeout: testTimeout)
-    }
-    
-    private struct TestContext: Equatable {
-        let name: String, age: Int
     }
     
     func testPassingDataToNextStep() {
         let flowContainer = UINavigationController()
         
         let testingVC1 = FlowterTestViewController()
-        let testingVC2 = FlowterTestViewController()
+        let testingVC2 = FlowterTestUpdatingViewController()
         
         Flowter(with: flowContainer)
             .addStep { $0.make { testingVC1 }}
@@ -313,6 +317,32 @@ class FlowterTests: XCTestCase {
         testingVC1.flow?.next(context: testingVC1Context)
         
         XCTAssertEqual(testingVC1Context, testingVC2.context as? TestContext)
+    }
+    
+    func testLosingDataSentToNextStep() {
+        let flowContainer = UINavigationController()
+        let expectation = XCTestExpectation(description: "start")
+        
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+
+        Flowter(with: flowContainer)
+            .addStep { $0.make { testingVC1 }}
+            .addStep { $0.make { testingVC2 }}
+            .addEndFlowStep { (container) in
+                container.dismiss(animated: false, completion: {
+                    expectation.fulfill()
+                })
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        testingVC1.flow?.next(context: "This string shall be lost") //And this should be logged
+        testingVC2.flow?.next()
+        
+        wait(for: [expectation], timeout: testTimeout) //Should lose context without side effects
     }
     
     func testEmptyFlow() {

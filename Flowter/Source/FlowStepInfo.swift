@@ -10,13 +10,12 @@ import Foundation
 public struct FlowStepInfo {
     internal var flowStep: BaseFlowStepType
 
-    public func next(updating: Bool = false, context: Any? = nil) {
+    public func next(context: Any? = nil) {
         guard let nextStep = flowStep.nextStep as? FlowStepType else {
             flowStep.nextStep?.endFlowAction?()
             return
         }
-
-        nextStep.present(updating, context: context)
+        nextStep.present(with: context)
     }
 
     public func back() {
