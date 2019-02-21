@@ -7,10 +7,14 @@
 //
 import UIKit
 
-//should call flowStep.next() or optionally flowStep.back() to continue the flow
+/// A Flowtable is an UIViewController subclass that can be used to create FlowSteps to a Flowter.
 public protocol Flowtable where Self: UIViewController {
+    
+    /// This is the proxy you will use to go next(context: Any?) or back() on your flow.
     var flow: FlowStepInfo? { get set }
 
+    /// This method provides you with the context passed on flow.next(context: Any?) call from the previous step.
+    /// - Called just before presentation.
     func updateFlowtableViewController(with context: Any?)
 }
 

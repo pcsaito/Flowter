@@ -7,19 +7,29 @@
 //
 import UIKit
 
+
+/// Flowter is representation of the flow that holds all FlowtableViewController factories and presentation code,
+/// and finishing (aka: providing dissmiss code) will return an FinishedFlowter ready to be presented.
 public class Flowter<ContainerType> where ContainerType: UIViewController {
+    
+    /// Step factory type that hold lazy init code that allocate a Flowtable conforming object (your custom UIViewController generic type)
     public typealias StepFactoryType<T: Flowtable> = (_ stepFactory: MakeStep<T,ContainerType>) -> FlowStep<T,ContainerType>
-    public typealias DefaultStepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
+    
+    /// Function type of an presentation or dismiss actions
+    public typealias StepActionType = ( (_ vc: UIViewController, _ container: ContainerType) -> Void)
+    
+    /// Function type of flow dismiss action
     public typealias EndFlowStepActionType = (_ container: ContainerType) -> Void
     
+    /// The Container UIViewController that will present the flow
     public let flowContainer: ContainerType
 
     internal var steps: [BaseFlowStepType]
-    internal let presentAction: DefaultStepActionType
-    internal let dismissAction: DefaultStepActionType
+    internal let presentAction: StepActionType
+    internal let dismissAction: StepActionType
     
-    internal init(with container: ContainerType, defaultPresentAction: @escaping DefaultStepActionType,
-                defaultDismissAction: @escaping DefaultStepActionType, flowSteps: [BaseFlowStepType])
+    internal init(with container: ContainerType, defaultPresentAction: @escaping StepActionType,
+                defaultDismissAction: @escaping StepActionType, flowSteps: [BaseFlowStepType])
     {
         steps = flowSteps
         flowContainer = container
@@ -27,14 +37,30 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         dismissAction = defaultDismissAction
     }
 
+    /**
+     Initializes a new Flowter object with a container and optionally custom default presentation or dismiss code for all your steps.
+     - Parameters:
+         - container: The container that will present the flow
+         - defaultPresentAction: A custom present action for all steps that don't customize it
+         - defaultDismissAction: A custom dismiss action for all steps that don't customize it
+     
+     - Returns: A Flowter ready to be filled with steps and started.
+     */
     public convenience init(with container: ContainerType,
-                defaultPresentAction: DefaultStepActionType? = nil,
-                defaultDismissAction: DefaultStepActionType? = nil)
+                defaultPresentAction: StepActionType? = nil,
+                defaultDismissAction: StepActionType? = nil)
     {
         self.init(with: container, defaultPresentAction: defaultPresentAction ?? Flowter<ContainerType>.defaultPresent(),
                   defaultDismissAction: defaultDismissAction ?? Flowter<ContainerType>.defaultDismiss(), flowSteps: [])
     }
     
+    /**
+     Add a step to Flowter object providing an StepFactory that will be allocated only before presenting.
+     - Parameters:
+         - with: A StepFactory that returns an FlowStep that represents the step
+     
+     - Returns: A FilledFlowter ready to be finished.
+     */
     @discardableResult
     public func addStep<ControllerType>(with: StepFactoryType<ControllerType>) -> FilledFlowter<ContainerType> {
         let step = with(MakeStep<ControllerType,ContainerType>(container: flowContainer))
@@ -54,6 +80,13 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         return FilledFlowter(basedOn: self)
     }
     
+    /**
+     Add the end step to Flowter providing an EndFlowStepAction with the flow container dismiss code.
+     - Parameters:
+         - action: EndFlowStepActionType with the flow container dismiss code.
+     
+     - Returns: If the Flowter has one or more steps a FinishedFlowter ready to be started will be returned or nil when there is no steps.
+     */
     public func addEndFlowStep(_ action: @escaping EndFlowStepActionType) -> FinishedFlowter<ContainerType>? {
         guard steps.count > 0 else {
             return nil
@@ -84,7 +117,7 @@ extension Flowter  {
         }
     }
     
-    internal static func defaultPresent() -> DefaultStepActionType {
+    internal static func defaultPresent() -> StepActionType {
         return { (vc, container) in
             if let navContainer = container as? UINavigationController {
                 guard navContainer.viewControllers.contains(vc) == false else { return }
@@ -98,7 +131,7 @@ extension Flowter  {
         }
     }
     
-    internal static func defaultDismiss() -> DefaultStepActionType {
+    internal static func defaultDismiss() -> StepActionType {
         return { (vc, container) in
             if let navContainer = container as? UINavigationController {
                 navContainer.popViewController(animated: true)

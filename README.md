@@ -6,7 +6,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Flowter
-A lightweight, swifty and customizable UIViewController flow cordinator.
+A lightweight, swifty and customizable UIViewController flow cordinator DSL.
 
 It support static or dynamically build flows with a nice generic syntax.
 
@@ -131,7 +131,7 @@ Optionally you can pass an arbitrary object to the next step calling `flow?.next
 	flow?.next(context: info)
 ```
 
-The context will be delivered on `func updateFlowtableViewController(with context: Any?)` of the next step viewController.
+The context will be delivered on `func updateFlowtableViewController(with context: Any?)` of the next step viewController, just before presentation.
 ```swift
 func updateFlowtableViewController(with context: Any?) {
 	guard let contextString = context as? String else {

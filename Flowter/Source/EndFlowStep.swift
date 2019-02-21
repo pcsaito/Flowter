@@ -7,12 +7,22 @@
 //
 import UIKit
 
+/// Proxy that gets a container and returns a EndFlowStep object
 public struct MakeEndStep<ContainerType: UIViewController> {
+    
+    /**
+     Make an EndFlowStep based on the container
+     - Parameters:
+         - container: The flow container
+     
+     - Returns: A EndFlowStep with the container to be dismissed
+     */
     public func makeEndFlow(with container: ContainerType) -> EndFlowStep<ContainerType> {
         return EndFlowStep<ContainerType>(with: container)
     }
 }
 
+/// A EndFlowStep contains just the container to be dismissed
 public class EndFlowStep<ContainerType>: BaseFlowStepType {
     internal var endFlowAction: ( () -> Void)?
     
