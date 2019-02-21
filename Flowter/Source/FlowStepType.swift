@@ -15,6 +15,12 @@ internal protocol BaseFlowStepType {
 }
 
 internal protocol FlowStepType: BaseFlowStepType {
-    func present(_ updating: Bool)
+    func present(with context: Any?)
     func dismiss()
+}
+
+internal extension FlowStepType {    
+    func present() {
+        present(with: nil)
+    }
 }

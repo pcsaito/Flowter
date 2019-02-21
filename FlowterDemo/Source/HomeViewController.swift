@@ -42,7 +42,6 @@ class HomeViewController: UIViewController {
             .addStep(with: { (stepFactory) -> FlowStep<StepViewController, UINavigationController> in
                 let step = stepFactory.make(with: StepViewController(withLabel: "Flow Ending"))
                 step.setPresentAction({ (welcomeVC, container) in
-                    welcomeVC.updateFlowStepViewController()
                     welcomeVC.setAsLastStep()
                     container.pushViewController(welcomeVC, animated: true)
                 })
@@ -53,7 +52,7 @@ class HomeViewController: UIViewController {
             }
             .startFlow { [weak self] (container) in
                 self?.present(container, animated: true)
-        }
+            }
     }
 }
 

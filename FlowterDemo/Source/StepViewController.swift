@@ -12,10 +12,9 @@ import Flowter
 
 class StepViewController: UIViewController, Flowtable {
     var flow: FlowStepInfo?
-
-    var labelString = ""
     
     let label = UILabel(frame: .zero)
+    let contextLabel = UILabel(frame: .zero)
     let backButton = UIButton(type: .custom)
     let nextButton = UIButton(type: .custom)
     let closeButton = UIButton(type: .custom)
@@ -23,7 +22,7 @@ class StepViewController: UIViewController, Flowtable {
     convenience init(withLabel: String) {
         self.init(nibName: nil, bundle: nil)
         self.accessibilityLabel = withLabel
-        labelString = withLabel
+        self.label.text = withLabel
     }
 
     override func viewDidLoad() {
@@ -35,15 +34,20 @@ class StepViewController: UIViewController, Flowtable {
 
         view.backgroundColor = .white
         view.addSubview(label)
+        view.addSubview(contextLabel)
         view.addSubview(backButton)
         view.addSubview(nextButton)
         view.addSubview(closeButton)
 
-        label.text = labelString
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.frame = CGRect(x: 0, y: 0, width: 300, height: 100)
         label.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        
+        contextLabel.textAlignment = .center
+        contextLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        contextLabel.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
+        contextLabel.center = CGPoint(x: view.bounds.width / 2, y: (label.frame.origin.y + label.frame.size.height) + 10)
 
         backButton.accessibilityLabel = "backButton"
         backButton.setTitle("back", for: .normal)
@@ -73,6 +77,10 @@ class StepViewController: UIViewController, Flowtable {
                                   height: buttonHeight)
     }
 
+    func updateFlowtableViewController(with context: Any?) {
+        contextLabel.text = "Previous: " + (context as? String ?? "Home")
+    }
+    
     @objc
     private func backStep() {
         flow?.back()
@@ -80,7 +88,7 @@ class StepViewController: UIViewController, Flowtable {
 
     @objc
     private func nextStep() {
-        flow?.next(updating: true)
+        flow?.next(context: label.text)
     }
 
     @objc
