@@ -1,3 +1,23 @@
+V0.4.1
+-------
+* Add warnings and documentation to avoid loosing steps by syntax misuse.
+
+v0.4.0
+-------
+* Support to passing context: Any? objects to the next step
+
+v0.3.0
+-------
+* Introduce FilledFlowter to avoid empty flows to be started 
+
+v0.2.7
+-------
+* Fix another bug related to double .next() call 
+
+v0.2.6
+-------
+* Fix a bug related to double .next() call 
+
 v0.2.5
 -------
 
