@@ -227,6 +227,8 @@ private func openFlow(includeSecondStep: Bool) {
 		}
 }
  ```
+ 
+Add the steps always to the same Flowter object. If you want chain steps, keep the reference to the returned FilledFlowters and use it to add more steps or finish the flow. 
 
 ### Code reusage
 You can and should use the same controllers that is already used elsewhere in your App outside a flow!

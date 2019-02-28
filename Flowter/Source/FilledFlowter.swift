@@ -16,6 +16,18 @@ public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerTy
     }
     
     /**
+     Add a step to Flowter object providing an StepFactory that will be allocated only before presenting.
+     - Parameters:
+         - with: A StepFactory that returns an FlowStep that represents the step
+     
+     - Waning: Never discart a chained FilledFlowter, keep an reference to continue chaining
+     - Returns: A FilledFlowter ready to be finished.
+     */
+    public override func addStep<ControllerType>(with: StepFactoryType<ControllerType>) -> FilledFlowter<ContainerType> {
+        return super.addStep(with: with)
+    }
+    
+    /**
      Add the end step to FilledFlowter providing an EndFlowStepAction with the flow container dismiss code.
      - Parameters:
          - action: EndFlowStepActionType with the flow container dismiss code.

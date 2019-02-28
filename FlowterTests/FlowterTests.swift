@@ -477,4 +477,52 @@ class FlowterTests: XCTestCase {
         }
         wait(for: [postDismissExpectation], timeout: testTimeout)
     }
+    
+    func testMixedSyntax() {
+        let flowContainer = UINavigationController()
+        let expectation1 = XCTestExpectation(description: "present 1")
+        let expectation2 = XCTestExpectation(description: "present 2")
+        let expectation3 = XCTestExpectation(description: "dismiss")
+        
+        let vc1 = FlowterTestViewController()
+        let vc2 = FlowterTestViewController()
+
+        let flowter = Flowter(with: flowContainer)
+            
+        let filled = flowter.addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UINavigationController> in
+            let step = stepFactory.make(with: vc1)
+            
+            step.setPresentAction({ (vc, container) in
+                container.pushViewController(vc, animated: false)
+                expectation1.fulfill()
+            })
+                
+            return step
+        })
+        .addStep(with: { (stepFactory) -> FlowStep<FlowterTestViewController, UINavigationController> in
+            let step = stepFactory.make(with: vc2)
+            
+            step.setPresentAction({ (vc, container) in
+                container.pushViewController(vc, animated: false)
+                expectation2.fulfill()
+            })
+            
+            return step
+        })
+            
+        filled.addEndFlowStep { (container) in
+            container.dismiss(animated: false, completion: {
+                expectation3.fulfill()
+            })
+        }
+        .startFlow { (container) in
+            let rootVC = self.window.rootViewController
+            rootVC!.present(container, animated: false)
+        }
+        
+        vc1.flow?.next()
+        vc2.flow?.next()
+        
+        wait(for: [expectation1, expectation2, expectation3], timeout: testTimeout)
+    }
 }

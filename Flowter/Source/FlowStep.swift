@@ -54,9 +54,7 @@ public class FlowStep<ControllerType: Flowtable, ContainerType>: FlowStepType {
     internal var nextStep: BaseFlowStepType?
     internal let container: ContainerType
 
-    lazy var viewController: ControllerType = { [unowned self] in
-        self.viewControllerFactory()
-    }()
+    lazy var viewController: ControllerType = viewControllerFactory()
 
     /**
      Initializes a new Flowter object with a container and optionally custom default presentation or dismiss code for all your steps.
