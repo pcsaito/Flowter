@@ -24,8 +24,7 @@ public class FilledFlowter<ContainerType: UIViewController>: Flowter<ContainerTy
      - Returns: A FilledFlowter ready to be finished.
      */
     public override func addStep<ControllerType>(with: StepFactoryType<ControllerType>) -> FilledFlowter<ContainerType> {
-        return super.addStep(with: with) //     Never discart a FilledFlowter, keep an reference to continue chaining
-
+        return super.addStep(with: with)
     }
     
     /**
