@@ -24,7 +24,7 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
     /// The Container UIViewController that will present the flow
     public let flowContainer: ContainerType
 
-    internal var steps: [BaseFlowStepType]
+    internal var steps: [BaseFlowStepType] = []
     internal let presentAction: StepActionType
     internal let dismissAction: StepActionType
     
@@ -78,6 +78,44 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         }
         
         return FilledFlowter(basedOn: self)
+    }
+    
+    public func insert<ControllerType>(at index: Int, with: StepFactoryType<ControllerType>) {
+        guard steps.count >= index else {
+            addStep(with: with)
+            return
+        }
+        
+        let step = with(MakeStep<ControllerType,ContainerType>(container: flowContainer))
+
+        if step.presentAction == nil {
+            step.presentAction = presentAction
+        }
+        
+        if index > 0 {
+            var lastStepBeforeIndex = steps[index - 1]
+            lastStepBeforeIndex.nextStep = step
+        }
+
+        let firstStepAfterIndex = steps[index]
+        step.nextStep = firstStepAfterIndex
+
+        steps.insert(step, at: index)
+    }
+    
+    public func remove(at index: Int) {
+        guard steps.count >= index else {
+            return
+        }
+        
+        if index > 0 {
+            var lastStepBeforeIndex = steps[index - 1]
+            let stepToRemove = steps[index]
+            
+            lastStepBeforeIndex.nextStep = stepToRemove.nextStep
+        }
+
+        steps.remove(at: index)
     }
     
     /**
