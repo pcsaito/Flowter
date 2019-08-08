@@ -80,6 +80,13 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         return FilledFlowter(basedOn: self)
     }
     
+    /**
+     Insert a step to Flowter object providing an StepFactory that will be allocated only before presenting.
+     The step will be located right after the Step at index, or at the end of the flow if the index is greater than the number of steps.
+     - Parameters:
+         - index: The position at which to insert the new step
+         - with: A StepFactory that returns an FlowStep that represents the step
+     */
     public func insert<ControllerType>(at index: Int, with: StepFactoryType<ControllerType>) {
         guard steps.count >= index else {
             addStep(with: with)
@@ -103,6 +110,11 @@ public class Flowter<ContainerType> where ContainerType: UIViewController {
         steps.insert(step, at: index)
     }
     
+    /**
+     Remove a step from the Flowter object.
+     - Parameters:
+         - index: The position of the step to remove
+     */
     public func remove(at index: Int) {
         guard steps.count >= index else {
             return
