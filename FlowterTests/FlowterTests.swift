@@ -641,4 +641,63 @@ class FlowterTests: XCTestCase {
         testingVC3.flow?.next()
         wait(for: [postDismissExpectation], timeout: testTimeout)
     }
+    
+    func testStepRemoval() {
+        let flowContainer = UINavigationController()
+        
+        let testingVC1 = FlowterTestViewController()
+        let testingVC2 = FlowterTestViewController()
+        let testingVC3 = FlowterTestViewController()
+        
+        let expectation1 = XCTestExpectation(description: "VC1Presentation")
+        let expectation2 = XCTestExpectation(description: "VC2Presentation")
+        let postDismissExpectation = XCTestExpectation(description: "end expectation")
+        
+        let flowter = Flowter(with: flowContainer)
+            .addStep { (stepFactory) -> FlowStep<FlowterTestViewController, UINavigationController> in
+                let step = stepFactory.make(with: testingVC1)
+                
+                step.setPresentAction({ (vc, container) in
+                    container.pushViewController(vc, animated: false)
+                    expectation1.fulfill()
+                })
+                
+                return step
+            }
+            .addStep { $0.make(with: testingVC3) }
+            .addStep { (stepFactory) -> FlowStep<FlowterTestViewController, UINavigationController> in
+                let step = stepFactory.make(with: testingVC2)
+                
+                step.setPresentAction({ (vc, container) in
+                    container.pushViewController(vc, animated: false)
+                    expectation2.fulfill()
+                })
+                
+                return step
+        }
+        
+        flowter.remove(at: 1)
+        flowter.remove(at: 3) //should not error
+
+        flowter.addEndFlowStep { (container) in
+            container.dismiss(animated: false, completion: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    postDismissExpectation.fulfill()
+                })
+            })
+            }
+            .startFlow { (container) in
+                let rootVC = self.window.rootViewController
+                rootVC!.present(container, animated: false)
+        }
+        
+        wait(for: [expectation1], timeout: testTimeout)
+        
+        testingVC1.flow?.next()
+        wait(for: [expectation2], timeout: testTimeout)
+
+        testingVC2.flow?.next()
+        wait(for: [postDismissExpectation], timeout: testTimeout)
+    }
+
 }
